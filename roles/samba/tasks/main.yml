@@ -1,0 +1,17 @@
+---
+- name: Install samba
+  community.general.pacman:
+    name: samba
+    state: present
+
+- name: Create smb.conf
+  ansible.builtin.template:
+    src: smb.j2
+    dest: /etc/samba/smb.conf
+    mode: preserve
+
+- name: Enable and start smb.service
+  ansible.builtin.systemd:
+    name: smb
+    state: started
+    enabled: true

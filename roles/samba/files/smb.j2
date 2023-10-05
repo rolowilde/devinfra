@@ -1,0 +1,24 @@
+[global]
+workgroup = WORKGROUP
+server string = {{ ansible_hostname }}
+server role = standalone server
+log level = 0
+log file = /dev/null
+public = yes
+writable = yes
+printable = no
+read only = no
+acl allow execute always = no
+acl map full control = no
+map archive = no
+map hidden = no
+create mask = 0644
+force create mode = 0664
+directory mask = 02775
+force directory mode = 02775
+inherit permissions = no
+store dos attributes = no
+
+[public]
+comment = public
+path = /home/{{ user }}/public
