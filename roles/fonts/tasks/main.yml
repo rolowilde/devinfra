@@ -1,0 +1,18 @@
+---
+- name: Install fonts
+  community.general.pacman:
+    name:
+      - ttf-cascadia-code
+      - ttf-cascadia-code-nerd
+      - ttf-dejavu
+      - ttf-droid
+      - ttf-liberation
+      - ttf-twemoji
+      - ttf-opensans
+      - ttf-ubuntu-font-family
+      - inter-font
+      - noto-fonts
+      - noto-fonts-cjk
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
