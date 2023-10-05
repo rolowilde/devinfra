@@ -1,0 +1,27 @@
+---
+- name: Install wine staging and optional packages
+  community.general.pacman:
+    name:
+      - wine-staging
+      - giflib
+      - lib32-giflib
+      - libldap
+      - lib32-libldap
+      - gnutls
+      - lib32-gnutls
+      - v4l-utils
+      - lib32-v4l-utils
+      - libpulse
+      - lib32-libpulse
+      - alsa-plugins
+      - lib32-alsa-plugins
+      - lib32-alsa-lib
+      - libxcomposite
+      - lib32-libxcomposite
+      - libxinerama
+      - lib32-libxinerama
+      - gst-plugins-base-libs
+      - lib32-gst-plugins-base-libs
+      - sdl2
+      - lib32-sdl2
+    state: present
