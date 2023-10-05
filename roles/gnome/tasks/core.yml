@@ -28,6 +28,7 @@
       - gnome-keyring
       -	gnome-shell-extensions
       - gnome-text-editor
+      - gnome-tweaks
       - gvfs
       - gvfs-mtp
       - gvfs-nfs
