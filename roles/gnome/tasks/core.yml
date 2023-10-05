@@ -29,6 +29,9 @@
       -	gnome-shell-extensions
       - gnome-text-editor
       - gnome-tweaks
+      - dconf-editor
+      - extension-manager
+      - gdm-settings
       - gvfs
       - gvfs-mtp
       - gvfs-nfs
