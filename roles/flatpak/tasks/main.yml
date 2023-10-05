@@ -1,0 +1,16 @@
+---
+- name: Install flatpak
+  community.general.pacman:
+    name: flatpak
+    state: present
+
+- name: Add flathub repository
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Install flatseal
+  community.general.flatpak:
+    name: flatseal
+    state: present

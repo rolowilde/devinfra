@@ -1,0 +1,40 @@
+---
+- name: Install gdm
+  community.general.pacman:
+    name: gdm
+    state: present
+
+- name: Install mutter-performance and gnome-shell-performance
+  community.general.pacman:
+    name:
+      - mutter-performance
+      - gnome-shell-performance
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Install core GNOME packages
+  community.general.pacman:
+    name:
+      - gnome-backgrounds
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-characters
+      - gnome-clocks
+      - gnome-color-manager
+      - gnome-control-center
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - gnome-keyring
+      -	gnome-shell-extensions
+      - gnome-text-editor
+      - gvfs
+      - gvfs-mtp
+      - gvfs-nfs
+      - gvfs-smb
+      - loupe
+      - nautilus
+      - sushi
+      - xdg-desktop-portal-gnome
+      - xdg-user-dirs-gtk
+    state: present

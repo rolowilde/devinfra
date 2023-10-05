@@ -1,0 +1,26 @@
+---
+- name: Import Chaotic-AUR primary key
+  community.general.pacman_key:
+    id: 3056513887B78AEB
+    keyserver: keyserver.ubuntu.com
+
+- name: Install Chaotic-AUR keyring
+  community.general.pacman:
+    name: "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst"
+    state: present
+
+- name: Install Chaotic-AUR mirrorlist
+  community.general.pacman:
+    name: "https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst"
+    state: present
+
+- name: Include Chaotic-AUR repository in pacman.conf
+  ansible.builtin.blockinfile:
+    dest: /etc/pacman.conf
+    block: |
+      [chaotic-aur]
+      Include = /etc/pacman.d/chaotic-mirrorlist
+
+- name: Refresh pacman cache
+  community.general.pacman:
+    update_cache: true

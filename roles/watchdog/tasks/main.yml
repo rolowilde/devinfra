@@ -1,0 +1,6 @@
+---
+- name: Kill watchdog via modprobe
+  ansible.builtin.copy:
+    src: watchdog.conf
+    dest: /etc/modprobe.d/watchdog.conf
+    mode: preserve

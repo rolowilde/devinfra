@@ -1,0 +1,52 @@
+---
+- hosts: all
+  name: Provision dev machine infrastructure
+  become: true
+  vars:
+    temp_dir: /tmp/ansible
+    yay_dir: "{{ yay_dir }}/yay"
+  roles:
+    # package acquisition
+    - role: pacman
+      tags: pacman
+
+    - role: multilib
+      tags: multilib
+
+    - role: chaotic_aur
+      tags: chaotic_aur
+
+    - role: yay
+      tags: yay
+
+    # system optimization
+    - role: ananicy
+      tags: ananicy
+
+    - role: btrfsmaintenance
+      tags: btrfsmaintenance
+
+    - role: systemd_journald
+      tags: systemd_journald
+
+    - role: watchdog
+      tags: watchdog
+
+    - role: zram_generator
+      tags: zram_generator
+
+    - role: zram_hibernate
+      tags: zram_hibernate
+
+    - role: ioschedulers
+      tags: ioschedulers
+
+    # graphics
+    - role: amdgpu
+      tags: amdgpu
+
+  post_tasks:
+    - name: Clean up temporary files
+      ansible.builtin.file:
+        path: "{{ temp_dir }}"
+        state: absent

@@ -1,0 +1,20 @@
+---
+- name: Install ananicy-cpp
+  community.general.pacman:
+    name: ananicy-cpp
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Install cachyos-ananicy-rules-git
+  community.general.pacman:
+    name: cachyos-ananicy-rules-git
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Enable and start ananicy-cpp.service
+  ansible.builtin.systemd:
+    name: ananicy-cpp
+    enabled: true
+    state: started

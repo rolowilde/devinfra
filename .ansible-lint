@@ -1,0 +1,5 @@
+---
+skip_list:
+  - latest
+  - no-changed-when
+  - command-instead-of-shell

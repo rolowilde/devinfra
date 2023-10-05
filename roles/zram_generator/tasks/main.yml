@@ -1,0 +1,11 @@
+---
+- name: Install zram-generator package
+  community.general.pacman:
+    name: zram-generator
+    state: present
+
+- name: Create zram-generator.conf
+  ansible.builtin.copy:
+    src: zram-generator.conf
+    dest: /etc/systemd/zram-generator.conf
+    mode: preserve

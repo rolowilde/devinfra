@@ -1,0 +1,7 @@
+---
+- name: Install zram-hibernate
+  community.general.pacman:
+    name: zram-hibernate-git
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
