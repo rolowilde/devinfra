@@ -6,7 +6,7 @@
     executable: yay
     extra_args: "--builddir {{ yay_dir }}"
 
-- name: Add user to docker group
+- name: Add user to informant group
   ansible.builtin.user:
     name: "{{ user }}"
     groups: informant
