@@ -5,3 +5,12 @@
     state: present
     executable: yay
     extra_args: "--builddir {{ yay_dir }}"
+
+- name: Enable btrfsmaintenance timers
+  ansible.builtin.systemd:
+    name: "{{ item }}.timer"
+    state: started
+    enabled: true
+  loop:
+    - btrfs-balance
+    - btrfs-scrub
