@@ -9,3 +9,12 @@
     src: zram-generator.conf
     dest: /etc/systemd/zram-generator.conf
     mode: preserve
+
+- name: Reload systemd targets
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Start zram
+  ansible.builtin.systemd:
+    state: started
+    name: systemd-zram-setup@zram0
