@@ -1,0 +1,32 @@
+---
+- name: Create kvm.conf
+  ansible.builtin.copy:
+    src: kvm.conf
+    dest: /etc/modprobe.d/kvm.conf
+    mode: preserve
+
+- name: Install libvirt and some optional packages
+  community.general.pacman:
+    name:
+      - libvirt
+      - dmidecode
+      - dmsmasq
+      - iptables-nft
+    state: present
+
+- name: Install qemu-desktop package
+  community.general.pacman:
+    name: qemu-desktop
+    state: present
+
+- name: Create libvirtd.conf
+  ansible.builtin.template:
+    src: libvirtd.j2
+    dest: /etc/libvirt/libvirtd.conf
+    mode: preserve
+
+- name: Create qemu.conf
+  ansible.builtin.template:
+    src: libvirtd.j2
+    dest: /etc/libvirt/qemu.conf
+    mode: preserve
