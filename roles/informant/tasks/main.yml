@@ -10,4 +10,4 @@
   ansible.builtin.user:
     name: "{{ user }}"
     groups: informant
-    append: yes
+    append: true
