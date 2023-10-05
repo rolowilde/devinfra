@@ -41,6 +41,9 @@
     - role: ioschedulers
       tags: ioschedulers
 
+    - role: informant
+      tags: informant
+
     # graphics
     - role: amdgpu
       tags: amdgpu
