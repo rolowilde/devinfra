@@ -13,7 +13,7 @@
   ansible.builtin.user:
     name: "{{ user }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: Enable and start docker.service
   ansible.builtin.systemd:
