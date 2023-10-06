@@ -41,4 +41,5 @@
       - sushi
       - xdg-desktop-portal-gnome
       - xdg-user-dirs-gtk
+      - file-roller
     state: present
