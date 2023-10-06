@@ -1,0 +1,15 @@
+---
+- name: Install nodejs
+  community.general.pacman:
+    name: nodejs
+    state: present
+
+- name: Install nodejs-lts-hydrogen (LTS)
+  community.general.pacman:
+    name: nodejs-lts-hydrogen
+    state: present
+
+- name: Install npm
+  community.general.pacman:
+    name: npm
+    state: present
