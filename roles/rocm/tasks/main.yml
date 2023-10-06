@@ -1,0 +1,5 @@
+---
+- name: Install rocm-opencl-runtime package
+  community.general.pacman:
+    name: rocm-opencl-runtime
+    state: present
