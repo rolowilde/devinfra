@@ -11,3 +11,16 @@
   community.general.pacman:
     name: wireplumber
     state: present
+
+- name: Enable and start pipewire services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ uid }}"
+  loop:
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
