@@ -38,6 +38,13 @@
     - role: yay
       tags: yay
 
+    # server
+    - role: ssh
+      tags: ssh
+
+    - role: samba
+      tags: samba
+
     # system optimization
     - role: ananicy
       tags: ananicy
@@ -63,6 +70,68 @@
     - role: informant
       tags: informant
 
+    # virtualization
+    - role: docker
+      tags: docker
+
+    - role: libvirt
+      tags: libvirt
+
+    # programming languages
+    - role: dotnet
+      tags: dotnet
+
+    - role: java
+      tags: java
+
+    - role: python
+      tags: python
+
+    - role: golang
+      tags: golang
+
+    - role: nodejs
+      tags: nodejs
+
+    - role: rust
+      tags: rust
+
     # graphics
     - role: amdgpu
       tags: amdgpu
+
+    - role: fonts
+      tags: fonts
+
+    - role: gnome
+      tags: gnome
+
+    - role: apps
+      tags: apps
+
+    # gaming
+    - role: wine
+      tags: wine
+
+    - role: wine_gaming
+      tags: wine_gaming
+
+    - role: lutris
+      tags: lutris
+
+    - role: steam
+      tags: steam
+
+    # devices
+    - role: opentabletdriver
+      tags: opentabletdriver
+
+    - role: openrazer
+      tags: openrazer
+
+    # extras
+    - role: rocm
+      tags: rocm
+
+    - role: msfonts
+      tags: msfonts
