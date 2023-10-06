@@ -29,14 +29,8 @@
     - role: pacman
       tags: pacman
 
-    - role: multilib
-      tags: multilib
-
     - role: chaotic_aur
       tags: chaotic_aur
-
-    - role: yay
-      tags: yay
 
     # server
     - role: ssh
