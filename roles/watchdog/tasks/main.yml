@@ -1,5 +1,15 @@
 ---
-- name: Kill watchdog via modprobe
+- name: Disable watchdog kernel modules
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: disabled
+  loop:
+    - sp5100_tco
+    - iTCO_wdt
+    - iTCO_vendor_support
+    - wdat_wdt
+
+- name: Blacklist watchdog via modprobe
   ansible.builtin.copy:
     src: watchdog.conf
     dest: /etc/modprobe.d/watchdog.conf
