@@ -11,10 +11,10 @@
 - name: Install cargo tools
   community.general.pacman:
     name:
-     - cargo-binstall
-     - cargo-sort
-     - cargo-watch
-     - cargo-bloat
-     - cargo-update
-     - cargo-release
+      - cargo-binstall
+      - cargo-sort
+      - cargo-watch
+      - cargo-bloat
+      - cargo-update
+      - cargo-release
     state: present
