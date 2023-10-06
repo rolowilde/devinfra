@@ -2,7 +2,7 @@
 - name: Disable redundant tablet kernel modules
   community.general.modprobe:
     name: "{{ item }}"
-    state: disabled
+    state: absent
   loop:
     - wacom
     - hid_uclogic

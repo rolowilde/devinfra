@@ -2,7 +2,7 @@
 - name: Disable watchdog kernel modules
   community.general.modprobe:
     name: "{{ item }}"
-    state: disabled
+    state: absent
   loop:
     - sp5100_tco
     - iTCO_wdt
