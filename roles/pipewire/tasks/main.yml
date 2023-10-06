@@ -1,0 +1,13 @@
+---
+- name: Install pipewire packages
+  community.general.pacman:
+    name:
+      - pipewire
+      - pipewire-pulse
+      - pipewire-jack
+    state: present
+
+- name: Install wireplumber package
+  community.general.pacman:
+    name: wireplumber
+    state: present
