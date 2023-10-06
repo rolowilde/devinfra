@@ -5,3 +5,28 @@
     state: present
     executable: yay
     extra_args: "--builddir {{ yay_dir }}"
+
+- name: Install mangohud
+  community.general.pacman:
+    name:
+      - mangohud
+      - lib32-mangohud
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Install goverlay
+  community.general.pacman:
+    name: gamescope
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Install gamemode
+  community.general.pacman:
+    name:
+      - gamemode
+      - lib32-gamemode
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
