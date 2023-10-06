@@ -26,7 +26,7 @@
       - gnome-disk-utility
       - gnome-font-viewer
       - gnome-keyring
-      -	gnome-shell-extensions
+      - gnome-shell-extensions
       - gnome-text-editor
       - gnome-tweaks
       - dconf-editor
