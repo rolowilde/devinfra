@@ -10,6 +10,14 @@
     dest: /etc/samba/smb.conf
     mode: preserve
 
+- name: Create ~/public directory
+  ansible.builtin.file:
+    path: "/home/{{ user }}/public"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0755
+
 - name: Enable and start smb.service
   ansible.builtin.systemd:
     name: smb
