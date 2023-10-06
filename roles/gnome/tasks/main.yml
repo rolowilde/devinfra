@@ -2,3 +2,8 @@
 - name: Install core packages
   ansible.builtin.import_tasks:
     file: core.yml
+
+- name: Apply dconf config
+  ansible.builtin.import_tasks:
+    file: dconf.yml
+  become_user: "{{ user }}"
