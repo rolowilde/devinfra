@@ -1,0 +1,34 @@
+---
+- name: Disable redundant tablet kernel modules
+  community.general.modprobe:
+    name: "{{ item }}"
+    state: disabled
+  loop:
+    - wacom
+    - hid_uclogic
+
+- name: Blacklist redundant tablet kernel modules
+  ansible.builtin.copy:
+    src: wacom.conf
+    dest: /etc/modprobe.d/wacom.conf
+    mode: preserve
+
+- name: Install opentabletdriver-git package
+  community.general.pacman:
+    name: opentabletdriver-git
+    state: present
+    executable: yay
+    extra_args: "--builddir {{ yay_dir }}"
+
+- name: Reload systemd units
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+
+- name: Enable and start opentabletdriver.service
+  ansible.builtin.systemd:
+    name: opentabletdriver
+    state: started
+    scope: user
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ uid }}"
