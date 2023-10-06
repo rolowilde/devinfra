@@ -1,0 +1,10 @@
+---
+- name: Install go
+  community.general.pacman:
+    name: go
+    state: present
+
+- name: Install goreleaser
+  community.general.pacman:
+    name: goreleaser
+    state: present
