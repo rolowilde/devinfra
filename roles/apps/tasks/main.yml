@@ -47,6 +47,7 @@
     state: present
     executable: yay
     extra_args: "--builddir {{ yay_dir }}"
+  when: cli_apps
 
 - name: Install GUI apps (pacman)
   community.general.pacman:
@@ -68,6 +69,7 @@
     state: present
     executable: yay
     extra_args: "--builddir {{ yay_dir }}"
+  when: gui_apps
 
 - name: Install GUI apps (flatpak)
   community.general.flatpak:
@@ -83,3 +85,4 @@
     state: present
     method: user
   become_user: "{{ user }}"
+  when: gui_apps

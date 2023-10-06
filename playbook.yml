@@ -35,9 +35,11 @@
     # server
     - role: ssh
       tags: ssh
+      when: ssh
 
     - role: samba
       tags: samba
+      when: samba
 
     # system optimization
     - role: ananicy
@@ -45,6 +47,7 @@
 
     - role: btrfsmaintenance
       tags: btrfsmaintenance
+      when: btrfs
 
     - role: systemd_journald
       tags: systemd_journald
@@ -54,9 +57,11 @@
 
     - role: zram_generator
       tags: zram_generator
+      when: zram
 
     - role: zram_hibernate
       tags: zram_hibernate
+      when: zram
 
     - role: ioschedulers
       tags: ioschedulers
@@ -67,65 +72,85 @@
     # virtualization
     - role: docker
       tags: docker
+      when: docker
 
     - role: libvirt
       tags: libvirt
+      when: libvirt
 
     # programming languages
     - role: dotnet
       tags: dotnet
+      when: dotnet
 
     - role: java
       tags: java
+      when: java
 
     - role: python
       tags: python
+      when: python
 
     - role: golang
       tags: golang
+      when: golang
 
     - role: nodejs
       tags: nodejs
+      when: nodejs
 
     - role: rust
       tags: rust
+      when: rust
 
     # graphics
     - role: amdgpu
       tags: amdgpu
+      when: gnome
 
     - role: fonts
       tags: fonts
+      when: gnome
 
     - role: gnome
       tags: gnome
+      when: gnome
 
     - role: apps
       tags: apps
+      when: apps
 
     # gaming
     - role: wine
       tags: wine
+      when: wine
 
     - role: wine_gaming
       tags: wine_gaming
+      when: wine_gaming
 
     - role: lutris
       tags: lutris
+      when: lutris
 
     - role: steam
       tags: steam
+      when: steam
 
     # devices
     - role: opentabletdriver
       tags: opentabletdriver
+      when: opentabletdriver
 
     - role: openrazer
       tags: openrazer
+      when: openrazer
 
     # extras
     - role: rocm
       tags: rocm
+      when: opencl
 
     - role: msfonts
       tags: msfonts
+      when: gnome and msfonts

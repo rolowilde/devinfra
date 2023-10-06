@@ -1,1 +1,39 @@
+# default barebones, server-esque configuration
+# serves as base for other host_vars
+# not to be modified!
+
 user: rowlul
+
+btrfs: true
+zram: true
+
+ssh: true
+samba: true
+
+docker: false
+libvirt: false
+
+dotnet: false
+java: false
+python: false
+golang: false
+nodejs: false
+rust: false
+
+# won't install any graphics stack if false
+gnome: false
+
+cli_apps: false
+gui_apps: false
+
+wine: false
+wine_gaming: false
+lutris: false
+steam: false
+
+opencl: false
+opentabletdriver: false
+openrazer: false
+msfonts: false
+
+has_battery: false
