@@ -42,4 +42,5 @@
       - xdg-desktop-portal-gnome
       - xdg-user-dirs-gtk
       - file-roller
+      - evince
     state: present
