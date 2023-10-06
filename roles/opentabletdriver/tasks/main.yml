@@ -29,6 +29,7 @@
   ansible.builtin.systemd:
     name: opentabletdriver
     state: started
+    enabled: true
     scope: user
   environment:
     XDG_RUNTIME_DIR: "/run/user/{{ uid }}"
