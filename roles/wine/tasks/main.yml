@@ -25,3 +25,8 @@
       - sdl2
       - lib32-sdl2
     state: present
+
+- name: Install winetricks package
+  community.general.pacman:
+    name: winetricks
+    state: present
