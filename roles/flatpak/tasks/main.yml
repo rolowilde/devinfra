@@ -9,8 +9,3 @@
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-
-- name: Install flatseal
-  community.general.flatpak:
-    name: flatseal
-    state: present
