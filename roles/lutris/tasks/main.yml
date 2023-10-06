@@ -1,0 +1,5 @@
+---
+- name: Install lutris package
+  community.general.pacman:
+    name: lutris
+    state: present
