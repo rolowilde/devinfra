@@ -4,20 +4,20 @@
     name: dotnet-sdk
     state: present
 
-- name: Install dotnet-sdk (LTS)
-  community.general.pacman:
-    name: dotnet-sdk-6.0
-    state: present
+# - name: Install dotnet-sdk (LTS)
+#   community.general.pacman:
+#     name: dotnet-sdk-6.0
+#     state: present
 
 - name: Install aspnet-targeting-pack
   community.general.pacman:
     name: aspnet-targeting-pack
     state: present
 
-- name: Install aspnet-targeting-pack (LTS)
-  community.general.pacman:
-    name: aspnet-targeting-pack-6.0
-    state: present
+# - name: Install aspnet-targeting-pack (LTS)
+#   community.general.pacman:
+#     name: aspnet-targeting-pack-6.0
+#     state: present
 
 - name: Install mono
   community.general.pacman:
