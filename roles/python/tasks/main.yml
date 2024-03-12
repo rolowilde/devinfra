@@ -6,7 +6,7 @@
 
 - name: Install pip
   community.general.pacman:
-    name: go
+    name: pip
     state: present
 
 - name: Install poetry
