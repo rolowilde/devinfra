@@ -149,7 +149,7 @@
     # extras
     - role: rocm
       tags: rocm
-      when: opencl
+      when: rocm
 
     - role: msfonts
       tags: msfonts

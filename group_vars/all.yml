@@ -31,7 +31,7 @@ wine_gaming: false
 lutris: false
 steam: false
 
-opencl: false
+rocm: false
 opentabletdriver: false
 openrazer: false
 msfonts: false
