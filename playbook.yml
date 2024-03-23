@@ -106,11 +106,11 @@
     # graphics
     - role: amdgpu
       tags: amdgpu
-      when: gnome
+      when: amdgpu
 
     - role: fonts
       tags: fonts
-      when: gnome
+      when: fonts
 
     - role: gnome
       tags: gnome
@@ -149,4 +149,4 @@
 
     - role: msfonts
       tags: msfonts
-      when: gnome and msfonts
+      when: msfonts
