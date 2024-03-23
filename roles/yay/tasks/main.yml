@@ -9,11 +9,11 @@
     - name: Clone yay repository
       ansible.builtin.git:
         repo: https://aur.archlinux.org/yay-bin.git
-        dest: "/tmp/ansible/yay"
+        dest: "{{ yay_dir }}"
         update: true
 
     - name: Make and install yay package
       ansible.builtin.command:
-        chdir: "/tmp/ansible/yay"
+        chdir: "{{ yay_dir }}"
         cmd: "makepkg -sfi --noconfirm"
         creates: /usr/bin/yay

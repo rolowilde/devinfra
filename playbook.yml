@@ -7,6 +7,14 @@
     yay_dir: "{{ temp_dir }}/yay"
 
   pre_tasks:
+    - name: Create temp dirs
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - "{{ temp_dir }}"
+        - "{{ yay_dir }}"
+
     - name: Get user id
       ansible.builtin.getent:
         database: passwd
