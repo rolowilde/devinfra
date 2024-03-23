@@ -4,9 +4,9 @@
     name: nodejs
     state: present
 
-- name: Install nodejs-lts-hydrogen (LTS)
+- name: Install nodejs-lts-iron (LTS)
   community.general.pacman:
-    name: nodejs-lts-hydrogen
+    name: nodejs-lts-iron
     state: present
 
 - name: Install npm
