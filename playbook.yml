@@ -125,10 +125,6 @@
       tags: wine
       when: wine
 
-    - role: wine_gaming
-      tags: wine_gaming
-      when: wine_gaming
-
     - role: lutris
       tags: lutris
       when: lutris
