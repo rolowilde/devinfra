@@ -24,6 +24,27 @@
       - lib32-gst-plugins-base-libs
       - sdl2
       - lib32-sdl2
+      - libpng
+      - lib32-libpng
+      - mpg123
+      - lib32-mpg123
+      - openal
+      - libgpg-error
+      - lib32-libgpg-error
+      - libjpeg-turbo
+      - lib32-libjpeg-turbo
+      - sqlite
+      - lib32-sqlite
+      - lib32-libgcrypt
+      - libgcrypt
+      - ncurses
+      - lib32-ncurses
+      - ocl-icd
+      - lib32-ocl-icd
+      - libxslt
+      - lib32-libxslt
+      - gst-plugins-base-libs
+      - lib32-gst-plugins-base-libs
     state: present
 
 - name: Install winetricks package
