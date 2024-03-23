@@ -4,7 +4,7 @@
   become: true
   vars:
     temp_dir: /tmp/ansible
-    yay_dir: "{{ yay_dir }}/yay"
+    yay_dir: "{{ temp_dir }}/yay"
 
   pre_tasks:
     - name: Get user id
