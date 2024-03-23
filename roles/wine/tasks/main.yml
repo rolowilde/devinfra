@@ -1,8 +1,8 @@
 ---
-- name: Install wine staging and optional packages
+- name: Install wine and optional packages
   community.general.pacman:
     name:
-      - wine-staging
+      - wine
       - giflib
       - lib32-giflib
       - libldap
