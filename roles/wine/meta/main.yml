@@ -1,3 +1,4 @@
 ---
 dependencies:
   - role: multilib
+  - role: yay
