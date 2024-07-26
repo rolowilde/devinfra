@@ -1,6 +1,6 @@
 ---
-- hosts: all
-  name: Provision dev machine infrastructure
+- name: Provision dev machine infrastructure
+  hosts: all
   become: true
   vars:
     temp_dir: /tmp/ansible
@@ -11,6 +11,7 @@
       ansible.builtin.file:
         path: "{{ item }}"
         state: directory
+        mode: "0600"
       loop:
         - "{{ temp_dir }}"
         - "{{ yay_dir }}"
@@ -31,6 +32,7 @@
       ansible.builtin.file:
         path: "{{ temp_dir }}"
         state: absent
+        recurse: true
 
   roles:
     # package acquisition
