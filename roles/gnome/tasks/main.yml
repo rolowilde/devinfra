@@ -1,7 +1,48 @@
 ---
-- name: Install core packages
-  ansible.builtin.import_tasks:
-    file: core.yml
+- name: Install pipewire packages
+  community.general.pacman:
+    name:
+      - pipewire
+      - pipewire-pulse
+      - pipewire-jack
+      - wireplumber
+    state: present
+
+- name: Install GNOME packages
+  community.general.pacman:
+    name:
+      - gdm
+      - mutter-performance
+      - gnome-shell-performance
+      - gnome-backgrounds
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-characters
+      - gnome-clocks
+      - gnome-color-manager
+      - gnome-control-center
+      - gnome-disk-utility
+      - gnome-font-viewer
+      - gnome-keyring
+      - gnome-shell-extensions
+      - gnome-text-editor
+      - gnome-tweaks
+      - dconf-editor
+      - extension-manager
+      - gdm-settings
+      - gvfs
+      - gvfs-mtp
+      - gvfs-nfs
+      - gvfs-smb
+      - loupe
+      - nautilus
+      - sushi
+      - xdg-desktop-portal-gnome
+      - xdg-user-dirs-gtk
+      - file-roller
+      - evince
+      - menulibre
+    state: present
 
 - name: Apply dconf config
   ansible.builtin.import_tasks:

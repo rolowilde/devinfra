@@ -5,16 +5,10 @@
     value: "[('xkb', 'us'), ('xkb', 'lv+apostrophe'), ('xkb', 'ru'), ('xkb', 'de')]"
     state: present
 
-- name: Switch layout on alt shift
-  community.general.dconf:
-    key: "/org/gnome/desktop/input-sources/xkb-options"
-    value: "['grp:alt_shift_toggle']"
-    state: present
-
-- name: 12h clock
+- name: 24h clock
   community.general.dconf:
     key: "/org/gnome/desktop/interface/clock-format"
-    value: "12h"
+    value: "24h"
     state: present
 
 - name: Prefer dark color scheme
@@ -138,10 +132,4 @@
   community.general.dconf:
     key: "/org/gnome/shell/disable-user-extensions"
     value: false
-    state: present
-
-- name: Set favorite apps
-  community.general.dconf:
-    key: "/org/gnome/shell/favorite-apps"
-    value: "['chromium.desktop', 'kitty.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Rhythmbox3.desktop', 'md.obsidian.Obsidian.desktop', 'com.spotify.Client.desktop', 'com.discordapp.Discord.desktop', 'code.desktop', 'steam.desktop', 'net.lutris.Lutris.desktop', 'org.qbittorrent.qBittorrent.desktop', 'org.remmina.Remmina.desktop', 'com.github.johnfactotum.Foliate.desktop', 'jetbrains-rider.desktop', 'jetbrains-idea.desktop']"
     state: present

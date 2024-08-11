@@ -18,3 +18,4 @@
   ansible.builtin.systemd:
     state: started
     name: systemd-zram-setup@zram0
+    enabled: true

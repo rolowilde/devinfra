@@ -2,42 +2,44 @@
 - name: Provision dev machine infrastructure
   hosts: all
   become: true
-  vars:
-    temp_dir: /tmp/ansible
-    yay_dir: "{{ temp_dir }}/yay"
 
   pre_tasks:
-    - name: Create temp dirs
-      ansible.builtin.file:
-        path: "{{ item }}"
-        state: directory
-        mode: "0600"
-      loop:
-        - "{{ temp_dir }}"
-        - "{{ yay_dir }}"
-
-    - name: Get user id
-      ansible.builtin.getent:
-        database: passwd
-        key: "{{ user }}"
-      register: getent_user
+    - name: Initialize playbook
       any_errors_fatal: true
+      block:
+        - name: Ensure running distribution is Arch Linux
+          ansible.builtin.assert:
+            that: ansible_distribution == "Archlinux"
 
-    - name: Persist user id
-      ansible.builtin.set_fact:
-        uid: "{{ lookup('ansible.builtin.dict', getent_user).0.1 }}"
+        - name: Get user id
+          ansible.builtin.getent:
+            database: passwd
+            key: "{{ user }}"
+          register: getent_user
+
+        - name: Persist user id
+          ansible.builtin.set_fact:
+            uid: "{{ lookup('ansible.builtin.dict', getent_user).0.1 }}"
 
   post_tasks:
-    - name: Clean up temporary files
-      ansible.builtin.file:
-        path: "{{ temp_dir }}"
-        state: absent
-        recurse: true
+    - name: Install packages
+      community.general.pacman:
+        name: "{{ packages }}"
+        state: present
+
+    - name: Install flatpaks
+      community.general.flatpak:
+        name: "{{ packages }}"
+        state: present
 
   roles:
     # package acquisition
     - role: pacman
       tags: pacman
+
+    - role: multilib
+      tags: multilib
+      when: multilib
 
     - role: chaotic_aur
       tags: chaotic_aur
@@ -69,10 +71,6 @@
       tags: zram_generator
       when: zram
 
-    - role: zram_hibernate
-      tags: zram_hibernate
-      when: zram
-
     - role: ioschedulers
       tags: ioschedulers
 
@@ -88,75 +86,16 @@
       tags: libvirt
       when: libvirt
 
-    # programming languages
-    - role: dotnet
-      tags: dotnet
-      when: dotnet
-
-    - role: java
-      tags: java
-      when: java
-
-    - role: python
-      tags: python
-      when: python
-
-    - role: golang
-      tags: golang
-      when: golang
-
-    - role: nodejs
-      tags: nodejs
-      when: nodejs
-
-    - role: rust
-      tags: rust
-      when: rust
-
     # graphics
     - role: amdgpu
       tags: amdgpu
       when: amdgpu
 
-    - role: fonts
-      tags: fonts
-      when: fonts
-
     - role: gnome
       tags: gnome
       when: gnome
-
-    - role: apps
-      tags: apps
-      when: apps
-
-    # gaming
-    - role: wine
-      tags: wine
-      when: wine
-
-    - role: lutris
-      tags: lutris
-      when: lutris
-
-    - role: steam
-      tags: steam
-      when: steam
 
     # devices
     - role: opentabletdriver
       tags: opentabletdriver
       when: opentabletdriver
-
-    - role: openrazer
-      tags: openrazer
-      when: openrazer
-
-    # extras
-    - role: rocm
-      tags: rocm
-      when: rocm
-
-    - role: msfonts
-      tags: msfonts
-      when: msfonts

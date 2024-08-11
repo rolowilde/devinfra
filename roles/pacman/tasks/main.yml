@@ -2,11 +2,16 @@
 - name: Enable some pacman options
   ansible.builtin.lineinfile:
     path: /etc/pacman.conf
-    regexp: "^#(.*{{ item }}.*)$"
+    regexp: '^#?\s*{{ item.key }}\s'
     line: "{{ item }}"
   loop:
     - Color
     - CheckSpace
     - VerbosePkgLists
     - ParallelDownloads = 5
-    - ILoveCandy
+
+- name: Enable 'ILoveCandy' pacman option
+  ansible.builtin.lineinfile:
+    path: /etc/pacman.conf
+    insertafter: "ParallelDownloads = 5"
+    line: "ILoveCandy"

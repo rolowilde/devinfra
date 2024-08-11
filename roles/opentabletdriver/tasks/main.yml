@@ -13,12 +13,10 @@
     dest: /etc/modprobe.d/wacom.conf
     mode: preserve
 
-- name: Install opentabletdriver-git package
+- name: Install opentabletdriver package
   community.general.pacman:
-    name: opentabletdriver-git
+    name: opentabletdriver
     state: present
-    executable: yay
-    extra_args: "--builddir {{ yay_dir }}"
 
 - name: Reload systemd units
   ansible.builtin.systemd:

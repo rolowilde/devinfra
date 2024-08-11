@@ -3,6 +3,7 @@
   community.general.pacman_key:
     id: 3056513887B78AEB
     keyserver: keyserver.ubuntu.com
+    state: present
 
 - name: Install Chaotic-AUR keyring
   community.general.pacman:
@@ -16,7 +17,11 @@
 
 - name: Include Chaotic-AUR repository in pacman.conf
   ansible.builtin.blockinfile:
-    dest: /etc/pacman.conf
+    path: /etc/pacman.conf
+    marker_begin: "begin chaotic_aur"
+    marker_end: "end chaotic_aur"
+    append_newline: true
+    prepend_newline: true
     block: |
       [chaotic-aur]
       Include = /etc/pacman.d/chaotic-mirrorlist
