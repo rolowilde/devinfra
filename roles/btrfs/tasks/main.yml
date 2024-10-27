@@ -1,4 +1,9 @@
 ---
+- name: Ensure btrfs-progs are installed
+  community.general.pacman:
+    name: btrfs-progs
+    state: present
+
 - name: Install btrfsmaintenance
   community.general.pacman:
     name: btrfsmaintenance

@@ -14,7 +14,6 @@ packages:
   - git
   - nvim
   - sudo
-  - btrfs-progs
   - pkgstats
   - usbutils
   - tree
