@@ -11,7 +11,7 @@
   ansible.builtin.copy:
     src: wacom.conf
     dest: /etc/modprobe.d/wacom.conf
-    mode: preserve
+    mode: 0644
 
 - name: Install opentabletdriver package
   community.general.pacman:

@@ -9,4 +9,4 @@
   ansible.builtin.copy:
     src: journald.conf
     dest: /etc/systemd/journald.conf
-    mode: preserve
+    mode: 0644
