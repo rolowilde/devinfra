@@ -67,8 +67,8 @@
     - role: watchdog
       tags: watchdog
 
-    - role: zram_generator
-      tags: zram_generator
+    - role: zram
+      tags: zram
       when: zram
 
     - role: ioschedulers

@@ -8,7 +8,7 @@
   ansible.builtin.copy:
     src: zram-generator.conf
     dest: /etc/systemd/zram-generator.conf
-    mode: preserve
+    mode: 0644
 
 - name: Reload systemd targets
   ansible.builtin.systemd:
@@ -19,3 +19,14 @@
     state: started
     name: systemd-zram-setup@zram0
     enabled: true
+
+- name: Create 99-vm-zram-parameters.conf
+  ansible.builtin.copy:
+    src: 99-vm-zram-parameters.conf
+    dest: /etc/sysctl.d/99-vm-zram-parameters.conf
+    mode: 0644
+
+- name: Restart systemd-sysctl
+  ansible.builtin.systemd:
+    name: systemd-sysctl
+    state: restarted
