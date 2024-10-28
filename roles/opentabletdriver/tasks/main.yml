@@ -18,10 +18,11 @@
     name: opentabletdriver
     state: present
 
-- name: Reload systemd units
+- name: Reload systemd (user)
   ansible.builtin.systemd:
     daemon_reload: true
     scope: user
+  become_user: "{{ user }}"
 
 - name: Enable and start opentabletdriver.service
   ansible.builtin.systemd:
