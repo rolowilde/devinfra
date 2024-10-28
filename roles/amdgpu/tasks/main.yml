@@ -18,3 +18,16 @@
       - lib32-mesa-vdpau
     state: present
   when: multilib
+
+- name: Check whether /etc/mkinitcpio.conf contains "amdgpu"
+  ansible.builtin.command: grep -q 'MODULES=.*amdgpu' /path/to/mkinitcpio.conf
+  ignore_errors: true
+  register: amdgpu_check
+
+- name: Add "amdgpu" to modules in /etc/mkinitcpio.conf
+  ansible.builtin.lineinfile:
+    path: /etc/mkinitcpio.conf
+    regexp: '^MODULES=\((.*)\)'
+    line: 'MODULES=(\1 amdgpu)'
+    backrefs: true
+  when: amdgpu_check.rc != 0
