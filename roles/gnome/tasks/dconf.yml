@@ -17,6 +17,21 @@
     value: "prefer-dark"
     state: present
 
+- name: Set font to Ubuntu
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/{{ item }}"
+    value: "Ubuntu 11"
+    state: present
+  loop:
+    - document-font-name
+    - font-name
+
+- name: Set gtk 3 theme to adw-gtk3-dark
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "adw-gtk3-dark"
+    state: present
+
 - name: Disable autorun
   community.general.dconf:
     key: "/org/gnome/desktop/media-handling/autorun-never"
@@ -45,6 +60,12 @@
   community.general.dconf:
     key: "/org/gnome/desktop/wm/preferences/button-layout"
     value: "appmenu:minimize,maximize,close"
+    state: present
+
+- name: Set title bar font to Ubuntu
+  community.general.dconf:
+    key: "/org/gnome/desktop/wm/preferences/titlebar-font"
+    value: "Ubuntu 11"
     state: present
 
 - name: Center new windows
