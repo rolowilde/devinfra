@@ -42,6 +42,7 @@
       - file-roller
       - evince
       - menulibre
+      - adw-gtk-theme-git
     state: present
 
 - name: Apply dconf config
