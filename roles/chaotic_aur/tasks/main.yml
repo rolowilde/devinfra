@@ -18,8 +18,6 @@
 - name: Include Chaotic-AUR repository in pacman.conf
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
-    marker_begin: "begin chaotic_aur"
-    marker_end: "end chaotic_aur"
     append_newline: true
     prepend_newline: true
     block: |
