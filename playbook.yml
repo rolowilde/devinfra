@@ -21,6 +21,12 @@
           ansible.builtin.set_fact:
             uid: "{{ lookup('ansible.builtin.dict', getent_user).0.1 }}"
 
+  tasks:
+    - name: "Include role {{ item }}"
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+      loop: "{{ roles  }}"
+
   post_tasks:
     - name: Install packages
       community.general.pacman:
@@ -31,71 +37,3 @@
       community.general.flatpak:
         name: "{{ packages }}"
         state: present
-
-  roles:
-    # package acquisition
-    - role: pacman
-      tags: pacman
-
-    - role: multilib
-      tags: multilib
-      when: multilib
-
-    - role: chaotic_aur
-      tags: chaotic_aur
-
-    # server
-    - role: ssh
-      tags: ssh
-      when: ssh
-
-    - role: samba
-      tags: samba
-      when: samba
-
-    # system optimization
-    - role: ananicy
-      tags: ananicy
-
-    - role: btrfs
-      tags: btrfs
-      when: btrfs
-
-    - role: systemd_journald
-      tags: systemd_journald
-
-    - role: watchdog
-      tags: watchdog
-
-    - role: zram
-      tags: zram
-      when: zram
-
-    - role: ioschedulers
-      tags: ioschedulers
-
-    - role: informant
-      tags: informant
-
-    # virtualization
-    - role: docker
-      tags: docker
-      when: docker
-
-    - role: libvirt
-      tags: libvirt
-      when: libvirt
-
-    # graphics
-    - role: amdgpu
-      tags: amdgpu
-      when: amdgpu
-
-    - role: gnome
-      tags: gnome
-      when: gnome
-
-    # devices
-    - role: opentabletdriver
-      tags: opentabletdriver
-      when: opentabletdriver

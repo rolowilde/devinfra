@@ -1,13 +1,14 @@
 user: rowlul
-multilib: true
-btrfs: true
-zram: true
-ssh: true
-samba: true
-docker: false
-libvirt: false
-gnome: false
-opentabletdriver: false
+
+run: [
+  pacman, multilib, chaotic_aur, informant,
+
+  zram, ioschedulers, systemd_oomd, systemd_journald, watchdog, aninancy,
+
+  ssh, samba, libvirt, docker,
+
+  amdgpu,
+]
 
 packages:
   # General & CLI
@@ -59,6 +60,9 @@ packages:
   - ffmpeg
   - curl
   - nvme-cli
+  - pciutils
+  - usbutils
+  - downgrade
 
   # SDKs & dev tools
   - dotnet-sdk
