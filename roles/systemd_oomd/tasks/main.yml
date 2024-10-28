@@ -1,0 +1,49 @@
+---
+- name: Create .conf.d directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  loop:
+    - /etc/systemd/system.conf.d
+    - /usr/lib/systemd/oomd.conf.d
+    - /usr/lib/systemd/system/system.slice.d
+    - /usr/lib/systemd/user/slice.d
+
+- name: Create 10-default-accounting.conf
+  ansible.builtin.copy:
+    src: 10-default-accounting.conf
+    dest: /etc/systemd/system.conf.d/10-default-accounting.conf
+    mode: 0644
+
+- name: Create 10-oomd.conf
+  ansible.builtin.copy:
+    src: 10-oomd.conf
+    dest: /usr/lib/systemd/oomd.conf.d/10-oomd.conf
+    mode: 0644
+
+- name: Create 10-oomd-per-slice.conf
+  ansible.builtin.copy:
+    src: 10-oomd-per-slice.conf
+    dest: "{{ item }}"
+    mode: 0644
+  loop:
+    - /usr/lib/systemd/system/system.slice.d/10-oomd-per-slice.conf
+    - /usr/lib/systemd/user/slice.d/10-oomd-per-slice.conf
+
+- name: Reload systemd (system)
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: system
+
+- name: Reload systemd (user)
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+  become_user: "{{ user }}"
+
+- name: Enable and start systemd-oomd service
+  ansible.builtin.systemd:
+    name: systemd-oomd
+    state: started
+    enabled: true
