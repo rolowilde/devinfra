@@ -4,6 +4,11 @@
     name: informant
     state: present
 
+- name: Create informant group
+  ansible.builtin.group:
+    name: informant
+    system: true
+
 - name: Add user to informant group
   ansible.builtin.user:
     name: "{{ user }}"

@@ -9,6 +9,11 @@
     name: docker-compose
     state: present
 
+- name: Create docker group
+  ansible.builtin.group:
+    name: docker
+    system: true
+
 - name: Add user to docker group
   ansible.builtin.user:
     name: "{{ user }}"

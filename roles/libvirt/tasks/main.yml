@@ -30,3 +30,14 @@
     src: libvirtd.j2
     dest: /etc/libvirt/qemu.conf
     mode: 0644
+
+- name: Create libvirt group
+  ansible.builtin.group:
+    name: libvirt
+    system: true
+
+- name: Add user to libvirt group
+  ansible.builtin.user:
+    name: "{{ user }}"
+    groups: libvirt
+    append: true

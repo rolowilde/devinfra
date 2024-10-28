@@ -1,4 +1,9 @@
 ---
+- name: Create systemd-journal group
+  ansible.builtin.group:
+    name: systemd-journal
+    system: true
+
 - name: Add user to systemd-journal group
   ansible.builtin.user:
     name: "{{ user }}"
