@@ -11,21 +11,16 @@
           ansible.builtin.assert:
             that: ansible_distribution == "Archlinux"
 
-        - name: Get user id
+        - name: Get user {{ user }}
           ansible.builtin.getent:
             database: passwd
             key: "{{ user }}"
-          register: getent_user
-
-        - name: Persist user id
-          ansible.builtin.set_fact:
-            uid: "{{ lookup('ansible.builtin.dict', getent_user).0.1 }}"
 
   tasks:
-    - name: "Include role {{ item }}"
+    - name: Include role {{ item }}
       ansible.builtin.include_role:
         name: "{{ item }}"
-      loop: "{{ roles  }}"
+      loop: "{{ run }}"
 
   post_tasks:
     - name: Install packages
