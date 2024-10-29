@@ -36,6 +36,7 @@
   ansible.builtin.systemd:
     name: reflector.service
     state: started
+  when: not skip_refresh_mirrorlist
 
 - name: Install pacman-contrib
   community.general.pacman:
