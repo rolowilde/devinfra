@@ -1,4 +1,5 @@
 user: rowlul
+mirrorlist: LV,LT,EE,FI,SE,PL
 
 run: [
   pacman, multilib, chaotic_aur, informant,

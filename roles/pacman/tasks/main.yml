@@ -15,3 +15,36 @@
     path: /etc/pacman.conf
     insertafter: "ParallelDownloads = 5"
     line: "ILoveCandy"
+
+- name: Install reflector
+  community.general.pacman:
+    name: reflector
+    state: present
+
+- name: Configure reflector
+  ansible.builtin.template:
+    src: reflector.j2
+    dest: /etc/xdg/reflector/reflector.conf
+    mode: 0644
+
+- name: Enable and start reflector.timer
+  ansible.builtin.systemd:
+    name: reflector.timer
+    state: started
+    enabled: true
+
+- name: Refresh the mirrorlist
+  ansible.builtin.systemd:
+    name: reflector.service
+    state: started
+
+- name: Install pacman-contrib
+  community.general.pacman:
+    name: pacman-contrib
+    state: present
+
+- name: Copy cache cleanup hook
+  ansible.builtin.copy:
+    src: pacman-cache-cleanup.hook
+    dest: /etc/pacman.d/hooks/pacman-cache-cleanup.hook
+    mode: 0644
