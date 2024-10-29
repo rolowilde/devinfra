@@ -8,4 +8,4 @@ Target = *
 [Action]
 Description = Keep two latest versions of currently installed packages
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/paccache -rk2 && /usr/bin/paccache -ruk0'
+Exec = /bin/sh -c '/usr/bin/paccache -qrk2 && /usr/bin/paccache -qruk0'
