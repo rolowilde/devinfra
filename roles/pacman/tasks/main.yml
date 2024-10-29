@@ -2,7 +2,7 @@
 - name: Enable some pacman options
   ansible.builtin.lineinfile:
     path: /etc/pacman.conf
-    regexp: '^#?\s*{{ item.key }}\s'
+    regexp: '^#?\s*{{ item }}\s'
     line: "{{ item }}"
   loop:
     - Color
