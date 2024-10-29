@@ -9,6 +9,7 @@
       - wl-clipboard
       - ydotool
       - xorg-xwayland
+    state: present
 
 - name: Install audio stack
   community.general.pacman:
@@ -17,6 +18,7 @@
       - pipewire-pulse
       - pipewire-jack
       - wireplumber
+    state: present
 
 - name: Install GUI frameworks
   community.general.pacman:
@@ -28,6 +30,7 @@
       - qt6-base
       - qt5-wayland
       - qt6-wayland
+    state: present
 
 - name: Install XDG packages
   community.general.pacman:
@@ -37,3 +40,4 @@
       - xdg-user-dirs-gtk
       - libcanberra
       - libnotify
+    state: present
