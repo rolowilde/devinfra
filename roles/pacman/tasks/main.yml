@@ -1,12 +1,11 @@
 ---
-- name: Enable some pacman options
+- name: Enable cosmetic pacman options
   ansible.builtin.lineinfile:
     path: /etc/pacman.conf
     regexp: '^#?\s*{{ item }}\s'
     line: "{{ item }}"
   loop:
     - Color
-    - CheckSpace
     - VerbosePkgLists
     - ParallelDownloads = 5
 
