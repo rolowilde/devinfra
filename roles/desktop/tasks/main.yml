@@ -1,0 +1,39 @@
+---
+- name: Install graphics stack
+  community.general.pacman:
+    name:
+      - wayland
+      - wayland-protocols
+      - wayland-utils
+      - wlroots
+      - wl-clipboard
+      - ydotool
+      - xorg-xwayland
+
+- name: Install audio stack
+  community.general.pacman:
+    name:
+      - pipewire
+      - pipewire-pulse
+      - pipewire-jack
+      - wireplumber
+
+- name: Install GUI frameworks
+  community.general.pacman:
+    name:
+      - libadwaita
+      - gtk3
+      - gtk4
+      - qt5-base
+      - qt6-base
+      - qt5-wayland
+      - qt6-wayland
+
+- name: Install XDG packages
+  community.general.pacman:
+    name:
+      - xdg-utils
+      - xdg-user-dirs
+      - xdg-user-dirs-gtk
+      - libcanberra
+      - libnotify

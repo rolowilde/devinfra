@@ -7,7 +7,7 @@ run: [
 
   ssh, samba, libvirt, docker,
 
-  amdgpu,
+  amdgpu, desktop,
 ]
 
 packages:
@@ -88,21 +88,8 @@ packages:
   - cargo-update
   - cargo-release
 
-  # Graphics stack & utils
-  - xorg-server
-  - xorg-xgamma
-  - xorg-xinput
-  - xorg-xkill
-  - xorg-xprop
-  - xorg-xrandr
-  - xclip
-  - wayland
-  - wayland-protocols
-  - xorg-xwayland
-
-  # GUI
-  - ungoogled-chromium
-  - firefox
+  # Programs
+  - floorp
   - alacritty
   - qbittorrent
   - jetbrains-toolbox

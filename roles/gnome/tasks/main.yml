@@ -1,13 +1,4 @@
 ---
-- name: Install pipewire packages
-  community.general.pacman:
-    name:
-      - pipewire
-      - pipewire-pulse
-      - pipewire-jack
-      - wireplumber
-    state: present
-
 - name: Install GNOME packages
   community.general.pacman:
     name:
