@@ -17,7 +17,7 @@
             key: "{{ user }}"
 
   tasks:
-    - name: Include role {{ item }}
+    - name: Run roles from vars
       ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ run }}"
