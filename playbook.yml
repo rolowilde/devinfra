@@ -27,8 +27,10 @@
       community.general.pacman:
         name: "{{ packages }}"
         state: present
+      when: packages | length > 0
 
     - name: Install flatpaks
       community.general.flatpak:
         name: "{{ packages }}"
         state: present
+      when: flatpaks | length > 0
