@@ -30,7 +30,7 @@
 
 - name: Create qemu.conf
   ansible.builtin.template:
-    src: libvirtd.j2
+    src: qemu.j2
     dest: /etc/libvirt/qemu.conf
     mode: '0644'
 
