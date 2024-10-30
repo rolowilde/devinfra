@@ -1,9 +1,4 @@
 ---
-- name: Create systemd-journal group
-  ansible.builtin.group:
-    name: systemd-journal
-    system: true
-
 - name: Create journald.conf
   ansible.builtin.copy:
     src: journald.conf
