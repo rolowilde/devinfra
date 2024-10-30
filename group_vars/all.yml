@@ -1,15 +1,23 @@
 user: rowlul
 mirrorlist: LV,LT,EE,FI,SE,PL
 
-run: [
-  pacman, multilib, chaotic_aur,
+run:
+  - pacman
+  - multilib
+  - chaotic_aur
 
-  zram, ioschedulers, systemd_journald, watchdog, ananicy,
+  - zram
+  - ioschedulers
+  - systemd_journald
+  - watchdog
+  - ananicy
 
-  ssh, samba, libvirt, docker,
+  - ssh
+  - samba
+  - libvirt
+  - docker
 
-  amdgpu, desktop,
-]
+  - desktop
 
 packages:
   # General & CLI
