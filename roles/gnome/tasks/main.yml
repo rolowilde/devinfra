@@ -35,8 +35,3 @@
       - menulibre
       - adw-gtk-theme-git
     state: present
-
-- name: Apply dconf config
-  ansible.builtin.import_tasks:
-    file: dconf.yml
-  become_user: "{{ user }}"
