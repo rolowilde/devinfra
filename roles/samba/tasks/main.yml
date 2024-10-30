@@ -17,9 +17,3 @@
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: '0755'
-
-- name: Enable and start smb.service
-  ansible.builtin.systemd:
-    name: smb
-    state: started
-    enabled: true
