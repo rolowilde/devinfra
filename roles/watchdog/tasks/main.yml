@@ -13,4 +13,4 @@
   ansible.builtin.copy:
     src: watchdog.conf
     dest: /etc/modprobe.d/watchdog.conf
-    mode: 0644
+    mode: '0644'

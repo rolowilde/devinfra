@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     src: kvm.conf
     dest: /etc/modprobe.d/kvm.conf
-    mode: 0644
+    mode: '0644'
 
 - name: Install libvirt and some optional packages
   community.general.pacman:
@@ -23,13 +23,13 @@
   ansible.builtin.template:
     src: libvirtd.j2
     dest: /etc/libvirt/libvirtd.conf
-    mode: 0644
+    mode: '0644'
 
 - name: Create qemu.conf
   ansible.builtin.template:
     src: libvirtd.j2
     dest: /etc/libvirt/qemu.conf
-    mode: 0644
+    mode: '0644'
 
 - name: Create libvirt group
   ansible.builtin.group:

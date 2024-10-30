@@ -14,4 +14,4 @@
   ansible.builtin.copy:
     src: journald.conf
     dest: /etc/systemd/journald.conf
-    mode: 0644
+    mode: '0644'

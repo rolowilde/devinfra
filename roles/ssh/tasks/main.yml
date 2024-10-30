@@ -6,14 +6,14 @@
 
 - name: Generate random port
   ansible.builtin.set_fact:
-    port: "{{ 65535 | random(start=1024) }}"
+    ssh_port: "{{ 65535 | random(start=1024) }}"
   run_once: true
 
 - name: Create sshd_config
   ansible.builtin.template:
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
-    mode: 0644
+    mode: '0644'
 
 - name: Enable and start sshd service
   ansible.builtin.systemd:
