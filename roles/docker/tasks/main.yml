@@ -19,9 +19,3 @@
     name: "{{ user }}"
     groups: docker
     append: true
-
-- name: Enable and start docker.service
-  ansible.builtin.systemd:
-    name: docker
-    enabled: true
-    state: started
