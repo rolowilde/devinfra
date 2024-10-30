@@ -4,14 +4,13 @@
     name: systemd-journal
     system: true
 
-- name: Add user to systemd-journal group
-  ansible.builtin.user:
-    name: "{{ user }}"
-    groups: systemd-journal
-    append: true
-
 - name: Create journald.conf
   ansible.builtin.copy:
     src: journald.conf
     dest: /etc/systemd/journald.conf
     mode: '0644'
+
+- name: Restart systemd-journald service
+  ansible.builtin.systemd:
+    name: systemd-journald
+    state: restarted
