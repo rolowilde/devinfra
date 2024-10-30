@@ -13,6 +13,9 @@
       - dnsmasq
       - iptables-nft
     state: present
+    extra_args: '--noconfirm --ask=4'
+    # using undocumented args to resolve dep conflict (iptables -> iptables-nft)
+    # https://gitlab.archlinux.org/pacman/pacman/-/issues/60#note_131424
 
 - name: Install qemu-desktop package
   community.general.pacman:
