@@ -11,5 +11,5 @@
     mode: '0644'
     content: |
       {% for module in watchdog_kernel_modules %}
-      {{ module }}
+      blacklist {{ module }}
       {% endfor %}
