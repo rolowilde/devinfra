@@ -2,7 +2,7 @@ user: rowlul
 mirrorlist: LV,LT,EE,FI,SE,PL
 
 run: [
-  pacman, multilib, chaotic_aur, informant,
+  pacman, multilib, chaotic_aur,
 
   zram, ioschedulers, systemd_oomd, systemd_journald, watchdog, ananicy,
 
