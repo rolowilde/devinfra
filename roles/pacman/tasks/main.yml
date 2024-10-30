@@ -24,7 +24,7 @@
   ansible.builtin.template:
     src: reflector.j2
     dest: /etc/xdg/reflector/reflector.conf
-    mode: 0644
+    mode: '0644'
 
 - name: Enable and start reflector.timer
   ansible.builtin.systemd:
@@ -36,7 +36,7 @@
   ansible.builtin.systemd:
     name: reflector.service
     state: started
-  when: not skip_refresh_mirrorlist
+  when: pacman_refresh_mirrorlist
 
 - name: Install pacman-contrib
   community.general.pacman:
@@ -47,10 +47,10 @@
   ansible.builtin.file:
     path: /etc/pacman.d/hooks
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Copy cache cleanup hook
   ansible.builtin.copy:
     src: pacman-cache-cleanup.hook
     dest: /etc/pacman.d/hooks/pacman-cache-cleanup.hook
-    mode: 0644
+    mode: '0644'
