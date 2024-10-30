@@ -3,14 +3,13 @@
   community.general.modprobe:
     name: "{{ item }}"
     state: absent
-  loop:
-    - sp5100_tco
-    - iTCO_wdt
-    - iTCO_vendor_support
-    - wdat_wdt
+  loop: "{{ watchdog_kernel_modules }}"
 
-- name: Blacklist watchdog via modprobe
+- name: Create a denylist of watchdog kernel modules
   ansible.builtin.copy:
-    src: watchdog.conf
     dest: /etc/modprobe.d/watchdog.conf
     mode: '0644'
+    content: |
+      {% for module in watchdog_kernel_modules %}
+      {{ module }}
+      {% endfor %}
