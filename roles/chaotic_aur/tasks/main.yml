@@ -1,7 +1,7 @@
 ---
 - name: Import Chaotic-AUR primary key
   community.general.pacman_key:
-    id: 3056513887B78AEB
+    id: ef925ea60f33d0cb85c44ad13056513887b78aeb
     keyserver: keyserver.ubuntu.com
     state: present
 
