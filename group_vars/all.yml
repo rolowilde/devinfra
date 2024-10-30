@@ -14,7 +14,7 @@ run: [
 packages:
   # General & CLI
   - git
-  - nvim
+  - neovim
   - sudo
   - pkgstats
   - usbutils
@@ -41,9 +41,8 @@ packages:
   - speedtest-cli
   - tldr
   - man
-  - jd
+  - jq
   - yq
-  - xq
   - figlet
   - trash-cli
   - gdu
@@ -74,7 +73,7 @@ packages:
   - nodejs
   - npm
   - python
-  - pip
+  - python-pip
   - python-poetry
   - python-black
   - flake8

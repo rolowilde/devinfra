@@ -31,6 +31,6 @@
 
     - name: Install flatpaks
       community.general.flatpak:
-        name: "{{ packages }}"
+        name: "{{ flatpaks }}"
         state: present
       when: flatpaks | length > 0
