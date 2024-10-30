@@ -4,6 +4,7 @@
     path: /etc/pacman.conf
     prepend_newline: true
     append_newline: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK :: MULTILIB"
     block: |
       [multilib]
       Include = /etc/pacman.d/mirrorlist
