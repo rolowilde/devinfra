@@ -19,6 +19,7 @@
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
     append_newline: true
+    prepend_newline: true
     block: |
       [chaotic-aur]
       Include = /etc/pacman.d/chaotic-mirrorlist
