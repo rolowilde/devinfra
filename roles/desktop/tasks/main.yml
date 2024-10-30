@@ -19,6 +19,7 @@
       - pipewire-jack
       - wireplumber
     state: present
+    extra_args: '--noconfirm --ask=4'
 
 - name: Install GUI frameworks
   community.general.pacman:
