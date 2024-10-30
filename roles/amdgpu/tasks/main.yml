@@ -28,6 +28,6 @@
   ansible.builtin.lineinfile:
     path: /etc/mkinitcpio.conf
     regexp: '^MODULES=\((.*)\)'
-    line: 'MODULES=(\1 amdgpu)'
+    line: 'MODULES=(\1{{ " " if amdgpu_check.rc == 0 else "" }}amdgpu)'
     backrefs: true
   when: amdgpu_check.rc != 0
