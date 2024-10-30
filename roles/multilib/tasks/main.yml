@@ -2,6 +2,7 @@
 - name: Include multilib repository in pacman.conf
   ansible.builtin.blockinfile:
     path: /etc/pacman.conf
+    prepend_newline: true
     append_newline: true
     block: |
       [multilib]
