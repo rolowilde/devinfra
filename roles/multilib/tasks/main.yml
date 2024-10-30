@@ -7,10 +7,10 @@
       [multilib]
       Include = /etc/pacman.d/mirrorlist
 
-- name: Set multilib fact
-  ansible.builtin.set_fact:
-    multilib: true
-
 - name: Refresh pacman cache
   community.general.pacman:
     update_cache: true
+
+- name: Set multilib fact
+  ansible.builtin.set_fact:
+    multilib: true
