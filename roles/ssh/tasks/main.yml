@@ -7,7 +7,11 @@
 - name: Generate random port
   ansible.builtin.set_fact:
     ssh_port: "{{ 65535 | random(start=1024) }}"
-  run_once: true
+  when: ssh_port is undefined
+
+- name: Show ssh port
+  ansible.builtin.debug:
+    var: ssh_port
 
 - name: Create sshd_config
   ansible.builtin.template:
