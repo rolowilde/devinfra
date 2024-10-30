@@ -20,7 +20,7 @@
   when: multilib
 
 - name: Check whether /etc/mkinitcpio.conf contains "amdgpu"
-  ansible.builtin.command: grep -q 'MODULES=.*amdgpu' /path/to/mkinitcpio.conf
+  ansible.builtin.command: grep -q 'MODULES=.*amdgpu' /etc/mkinitcpio.conf
   ignore_errors: true
   register: amdgpu_check
 
