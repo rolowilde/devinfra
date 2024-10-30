@@ -10,7 +10,7 @@
     name:
       - libvirt
       - dmidecode
-      - dmsmasq
+      - dnsmasq
       - iptables-nft
     state: present
 
