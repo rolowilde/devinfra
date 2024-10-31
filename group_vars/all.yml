@@ -70,8 +70,14 @@ packages: # pacman
   - pciutils
   - usbutils
   - downgrade
+  - inetutils
 
   # SDKs & dev tools
+  - base-devel
+  - gdb
+  - cmake
+  - clang
+  - llvm
   - dotnet-sdk
   - aspnet-targeting-pack
   - mono
