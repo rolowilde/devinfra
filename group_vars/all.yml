@@ -1,7 +1,9 @@
 user: rowlul
+
+# reflector --country=
 mirrorlist: LV,LT,EE,FI,SE,PL
 
-run:
+run: # roles
   - pacman
   - multilib
   - chaotic_aur
@@ -17,9 +19,7 @@ run:
   - libvirt
   - docker
 
-  - desktop
-
-packages:
+packages: # pacman
   # General & CLI
   - git
   - neovim

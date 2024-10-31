@@ -17,7 +17,7 @@
       - lib32-libva-mesa-driver
       - lib32-mesa-vdpau
     state: present
-  when: multilib
+  when: multilib is defined and multilib is true
 
 - name: Check whether /etc/mkinitcpio.conf contains "amdgpu"
   ansible.builtin.command: grep -q 'MODULES=.*amdgpu' /etc/mkinitcpio.conf

@@ -1,0 +1,5 @@
+post_run:
+  - amdgpu
+  - desktop
+  - gnome
+  - flatpak

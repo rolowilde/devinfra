@@ -9,3 +9,7 @@
     name: flathub
     state: present
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+
+- name: Set flatpak fact
+  ansible.builtin.set_fact:
+    flatpak: true
