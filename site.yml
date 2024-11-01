@@ -15,6 +15,10 @@
         key: "{{ user }}"
       any_errors_fatal: true
 
+    - name: Store user home path
+      ansible.builtin.set_fact:
+        user_home: "{{ getent_passwd[user][4] }}"
+
     - name: Include run roles
       ansible.builtin.include_role:
         name: "{{ item }}"

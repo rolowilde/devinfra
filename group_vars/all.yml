@@ -19,6 +19,9 @@ run: # roles
   - libvirt
   - docker
 
+  - zsh
+  - dots
+
 packages: # pacman
   # General & CLI
   - git
