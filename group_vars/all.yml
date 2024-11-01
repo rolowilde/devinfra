@@ -71,6 +71,7 @@ packages: # pacman
   - usbutils
   - downgrade
   - inetutils
+  - most
 
   # SDKs & dev tools
   - base-devel
