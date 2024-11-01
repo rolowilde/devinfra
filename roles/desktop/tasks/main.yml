@@ -42,3 +42,29 @@
       - libcanberra
       - libnotify
     state: present
+
+- name: Check if user-dirs.dirs exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.config/user-dirs.dirs"
+  register: user_dirs_fs
+
+- name: Read user-dirs.dirs
+  ansible.builtin.command:
+    cmd: cat "{{ user_home }}/.config/user-dirs.dirs"
+  register: user_dirs_file
+  become_user: "{{ user }}"
+  when: user_dirs_fs.stat.exists
+
+- name: Parse and create XDG directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ user_dirs_file.stdout_lines | select('match', '^XDG_.*_DIR') | map('regex_replace', '^XDG_.*_DIR=\"(.*?)\"$', '\\1') | list }}"
+  become_user: "{{ user }}"
+  when: user_dirs_fs.stat.exists
+
+- name: Update xdg-user-dirs
+  ansible.builtin.command:
+    cmd: xdg-user-dirs-update
+  register: xdg_user_dirs_update
