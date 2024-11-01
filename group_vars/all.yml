@@ -75,6 +75,7 @@ packages: # pacman
   - downgrade
   - inetutils
   - most
+  - yay
 
   # SDKs & dev tools
   - base-devel
