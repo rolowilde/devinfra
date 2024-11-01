@@ -115,6 +115,7 @@ packages: # pacman
   - virt-manager
   - visual-studio-code-bin
   - gparted
+  - libreoffice-fresh
 
   # Fonts
   - ttf-cascadia-code
@@ -190,5 +191,5 @@ flatpaks:
   - com.github.tchx84.Flatseal
   - com.spotify.Client
   - md.obsidian.Obsidian
-  - org.onlyoffice.desktopeditors
   - us.zoom.Zoom
+  - com.github.IsmaelMartinez.teams_for_linux
