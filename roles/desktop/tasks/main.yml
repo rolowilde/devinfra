@@ -68,3 +68,20 @@
   ansible.builtin.command:
     cmd: xdg-user-dirs-update
   register: xdg_user_dirs_update
+
+- name: Create ~/.local/share/applications
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local/share/applications"
+    state: directory
+    mode: '0755'
+  become_user: "{{ user }}"
+
+- name: Hide certain .desktop files
+  ansible.builtin.copy:
+    dest: "{{ user_home }}/.local/share/applications/{{ item }}.desktop"
+    content: |
+      [Desktop Entry]
+      NoDisplay=true
+    mode: '0644'
+  loop: "{{ desktop_files_to_hide }}"
+  become_user: "{{ user }}"
