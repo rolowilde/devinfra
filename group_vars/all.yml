@@ -181,6 +181,7 @@ packages: # pacman
   - lib32-gamemode
   - steam
   - protontricks-git
+  - lutris
 
 flatpaks:
   - com.discordapp.Discord
