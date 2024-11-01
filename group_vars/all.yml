@@ -108,7 +108,7 @@ packages: # pacman
 
   # Programs
   - floorp
-  - alacritty
+  - wezterm
   - qbittorrent
   - jetbrains-toolbox
   - prismlauncher
