@@ -120,6 +120,7 @@ packages: # pacman
 
   # Fonts
   - ttf-cascadia-code
+  - ttf-cascadia-code-nerd
   - ttf-dejavu
   - ttf-droid
   - ttf-liberation
