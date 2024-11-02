@@ -1,5 +1,5 @@
 ---
-- name: Install mesa packages
+- name: Install packages
   community.general.pacman:
     name:
       - mesa
@@ -7,9 +7,10 @@
       - vulkan-radeon
       - libva-mesa-driver
       - mesa-vdpau
+      - rocm-smi-lib
     state: present
 
-- name: Install 32-bit mesa packages
+- name: Install 32-bit packages
   community.general.pacman:
     name:
       - lib32-mesa
