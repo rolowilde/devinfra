@@ -76,6 +76,7 @@ packages: # pacman
   - inetutils
   - most
   - yay
+  - inxi
 
   # SDKs & dev tools
   - base-devel
