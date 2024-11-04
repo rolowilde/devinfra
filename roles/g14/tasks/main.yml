@@ -1,0 +1,36 @@
+---
+- name: Import g14 repository key
+  community.general.pacman_key:
+    id: 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+    keyserver: keyserver.ubuntu.com
+    state: present
+
+- name: Include g14 repository in pacman.conf
+  ansible.builtin.blockinfile:
+    path: /etc/pacman.conf
+    prepend_newline: true
+    append_newline: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK :: G14"
+    insertbefore: "^# BEGIN ANSIBLE MANAGED BLOCK :: CHAOTIC_AUR$"
+    block: |
+      [g14]
+      Server = https://arch.asus-linux.org
+
+- name: Refresh pacman cache
+  community.general.pacman:
+    update_cache: true
+
+- name: Install packages
+  ansible.builtin.package:
+    name:
+      - power-profiles-daemon
+      - asusctl
+      - supergfxctl
+      - switcheroo-control
+      - rog-control-center
+
+- name: Enable power-profiles-daemon service
+  ansible.builtin.systemd:
+    name: power-profiles-daemon
+    state: started
+    enabled: true

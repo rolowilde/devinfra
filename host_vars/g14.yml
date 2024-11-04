@@ -3,3 +3,4 @@ post_run:
   - desktop
   - gnome
   - flatpak
+  - g14
