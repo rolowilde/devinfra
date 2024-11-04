@@ -9,7 +9,7 @@
     name: btrfsmaintenance
     state: present
 
-- name: Enable btrfsmaintenance timers
+- name: Enable systemd timers
   ansible.builtin.systemd:
     name: "{{ item }}.timer"
     state: started
@@ -17,3 +17,4 @@
   loop:
     - btrfs-balance
     - btrfs-scrub
+    - fstrim
