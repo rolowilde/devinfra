@@ -1,0 +1,54 @@
+(
+    system: [],
+    boot: [
+        ImageAnimation(
+            file: "/usr/share/asusd/anime/custom/sonic-run.gif",
+            scale: 0.9,
+            angle: 0.65,
+            translation: (0.0, 0.0),
+            time: Fade((
+                fade_in: (secs: 2, nanos: 0),
+                show_for: Some((secs: 2, nanos: 0)),
+                fade_out: (secs: 2, nanos: 0),
+            )),
+            brightness: 1.0,
+        ),
+    ],
+    wake: [
+        ImageAnimation(
+            file: "/usr/share/asusd/anime/custom/sonic-run.gif",
+            scale: 0.9,
+            angle: 0.65,
+            translation: (0.0, 0.0),
+            time: Fade((
+                fade_in: (secs: 2, nanos: 0),
+                show_for: Some((secs: 2, nanos: 0)),
+                fade_out: (secs: 2, nanos: 0),
+            )),
+            brightness: 1.0,
+        ),
+    ],
+    shutdown: [
+        ImageAnimation(
+            file: "/usr/share/asusd/anime/custom/sonic-wait.gif",
+            scale: 0.9,
+            angle: 0.0,
+            translation: (3.0, 2.0),
+            time: Infinite,
+            brightness: 1.0,
+        ),
+    ],
+    display_enabled: false,
+    display_brightness: Off,
+    builtin_anims_enabled: true,
+    off_when_unplugged: true,
+    off_when_suspended: true,
+    off_when_lid_closed: true,
+    brightness_on_battery: Low,
+    builtin_anims: (
+        boot: GlitchConstruction,
+        awake: BinaryBannerScroll,
+        sleep: BannerSwipe,
+        shutdown: GlitchOut,
+    ),
+)

@@ -20,6 +20,12 @@
   community.general.pacman:
     update_cache: true
 
+- name: Copy asusd config directory
+  ansible.builtin.copy:
+    src: asusd
+    dest: /etc/asusd
+    mode: '0755'
+
 - name: Install packages
   ansible.builtin.package:
     name:
@@ -29,8 +35,10 @@
       - switcheroo-control
       - rog-control-center
 
-- name: Enable power-profiles-daemon service
+- name: Enable services
   ansible.builtin.systemd:
-    name: power-profiles-daemon
+    name:
+      - asusd
+      - power-profiles-daemon
     state: started
     enabled: true
