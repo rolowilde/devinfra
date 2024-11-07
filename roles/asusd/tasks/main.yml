@@ -20,12 +20,6 @@
   community.general.pacman:
     update_cache: true
 
-- name: Copy asusd config directory
-  ansible.builtin.copy:
-    src: asusd
-    dest: /etc/asusd
-    mode: '0755'
-
 - name: Install packages
   community.general.pacman:
     name:
@@ -35,6 +29,12 @@
       - switcheroo-control
       - rog-control-center
     state: present
+
+- name: Copy supergfxctl.conf
+  ansible.builtin.copy:
+    src: supergfxd.conf
+    dest: /etc/supergfxd.conf
+    mode: '0644'
 
 - name: Enable and start services
   ansible.builtin.systemd:
@@ -46,3 +46,25 @@
     - asusd
     - supergfxd
     - switcheroo-control
+
+- name: Set charge limit
+  ansible.builtin.command:
+    cmd: "asusctl -c {{ asusd_charge_limit }}"
+  when: asusd_charge_limit >= 40
+
+- name: Set fan curves
+  ansible.builtin.command:
+    cmd: "asusctl fan-curve -m {{ item.mode }} -f {{ item.fan }} -D {{ item.data }} -e true"
+  loop: "{{ asusd_fan_curve }}"
+
+- name: Toggle anime
+  ansible.builtin.command:
+    cmd: "asusctl -c {{ asusd_anime_enabled }}"
+
+- name: Set boot sound
+  ansible.builtin.command:
+    cmd: "asusctl -c {{ asusd_boot_sound }}"
+
+- name: Set screen overdrive
+  ansible.builtin.command:
+    cmd: "asusctl -c {{ asusd_screen_overdrive }}"
