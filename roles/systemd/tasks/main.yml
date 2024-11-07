@@ -1,0 +1,5 @@
+---
+- name: Configure systemd-journald
+  ansible.builtin.import_tasks:
+    file: journald.yml
+  when: systemd_journald

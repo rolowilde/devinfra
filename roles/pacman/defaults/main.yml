@@ -1,1 +1,9 @@
-pacman_refresh_mirrorlist: true
+---
+pacman_multilib: true
+pacman_chaotic_aur: true
+pacman_reflector: true
+pacman_cache_cleanup: true
+pacman_reflector_args: |
+  --country LV,FI,SE
+  --protocol https
+  --sort rate

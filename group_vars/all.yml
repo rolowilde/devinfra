@@ -1,197 +1,50 @@
+---
 user: rowlul
+shell: /bin/zsh
 
-# reflector --country=
-mirrorlist: LV,LT,EE,FI,SE,PL
+user_services: []
+system_services: []
 
-run: # roles
-  - pacman
-  - multilib
-  - chaotic_aur
+packages:
+  pacman: [
+    # Core Utilities & System
+    git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
+    btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
+    fastfetch, yank, speedtest-cli, tldr, man, jq, yq, figlet, trash-cli,
+    gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli, cmatrix, unrar,
+    unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most, yay, inxi,
+    powertop,
 
-  - zram
-  - ioschedulers
-  - systemd_journald
-  - watchdog
-  - ananicy
+    # Development Tools & SDKs
+    base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
+    go, goreleaser, nodejs, npm, python, python-pip, python-poetry, python-black,
+    flake8, mypy, python-isort, python-flake8-isort, rustup, cargo-binstall,
+    cargo-sort, cargo-watch, cargo-bloat, cargo-update, cargo-release,
 
-  - ssh
-  - samba
-  - libvirt
-  - docker
+    # Applications
+    floorp, wezterm, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
+    visual-studio-code-bin, gparted, libreoffice-fresh,
 
-  - zsh
-  - dots
+    # Fonts
+    ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
+    ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font, noto-fonts,
+    noto-fonts-cjk,
 
-packages: # pacman
-  # General & CLI
-  - git
-  - neovim
-  - sudo
-  - pkgstats
-  - usbutils
-  - tree
-  - dosfstools
-  - gnupg
-  - fwupd
-  - wget
-  - inetutils
-  - btop
-  - htop
-  - aria2
-  - yt-dlp
-  - just
-  - grex
-  - ripgrep
-  - bat
-  - neovim
-  - lazydocker
-  - broot
-  - fastfetch
-  - yank
-  - speedtest-cli
-  - tldr
-  - man
-  - jq
-  - yq
-  - figlet
-  - trash-cli
-  - gdu
-  - rsync
-  - rclone
-  - lsd
-  - zoxide
-  - fzf
-  - lazygit
-  - github-cli
-  - cmatrix
-  - unrar
-  - unzip
-  - p7zip
-  - ffmpeg
-  - curl
-  - nvme-cli
-  - pciutils
-  - usbutils
-  - downgrade
-  - inetutils
-  - most
-  - yay
-  - inxi
+    # Gaming & Compatibility
+    wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
+    v4l-utils, lib32-v4l-utils, libpulse, lib32-libpulse, alsa-plugins,
+    lib32-alsa-plugins, lib32-alsa-lib, libxcomposite, lib32-libxcomposite,
+    libxinerama, lib32-libxinerama, gst-plugins-base-libs, lib32-gst-plugins-base-libs,
+    sdl2, lib32-sdl2, libpng, lib32-libpng, mpg123, lib32-mpg123, openal,
+    libgpg-error, lib32-libgpg-error, libjpeg-turbo, lib32-libjpeg-turbo,
+    sqlite, lib32-sqlite, lib32-libgcrypt, libgcrypt, ncurses, lib32-ncurses,
+    ocl-icd, lib32-ocl-icd, libxslt, lib32-libxslt, winetricks, protonup-qt,
+    mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
+    protontricks-git, lutris,
+  ]
 
-  # SDKs & dev tools
-  - base-devel
-  - gdb
-  - cmake
-  - clang
-  - llvm
-  - dotnet-sdk
-  - aspnet-targeting-pack
-  - mono
-  - go
-  - goreleaser
-  - nodejs
-  - npm
-  - python
-  - python-pip
-  - python-poetry
-  - python-black
-  - flake8
-  - mypy
-  - python-isort
-  - python-flake8-isort
-  - rustup
-  - cargo-binstall
-  - cargo-sort
-  - cargo-watch
-  - cargo-bloat
-  - cargo-update
-  - cargo-release
-
-  # Programs
-  - floorp
-  - wezterm
-  - qbittorrent
-  - jetbrains-toolbox
-  - prismlauncher
-  - virt-manager
-  - visual-studio-code-bin
-  - gparted
-  - libreoffice-fresh
-
-  # Fonts
-  - ttf-cascadia-code
-  - ttf-cascadia-code-nerd
-  - ttf-dejavu
-  - ttf-droid
-  - ttf-liberation
-  - ttf-twemoji
-  - ttf-opensans
-  - ttf-ubuntu-font-family
-  - inter-font
-  - noto-fonts
-  - noto-fonts-cjk
-
-  # Gaming
-  - wine
-  - giflib
-  - lib32-giflib
-  - libldap
-  - lib32-libldap
-  - gnutls
-  - lib32-gnutls
-  - v4l-utils
-  - lib32-v4l-utils
-  - libpulse
-  - lib32-libpulse
-  - alsa-plugins
-  - lib32-alsa-plugins
-  - lib32-alsa-lib
-  - libxcomposite
-  - lib32-libxcomposite
-  - libxinerama
-  - lib32-libxinerama
-  - gst-plugins-base-libs
-  - lib32-gst-plugins-base-libs
-  - sdl2
-  - lib32-sdl2
-  - libpng
-  - lib32-libpng
-  - mpg123
-  - lib32-mpg123
-  - openal
-  - libgpg-error
-  - lib32-libgpg-error
-  - libjpeg-turbo
-  - lib32-libjpeg-turbo
-  - sqlite
-  - lib32-sqlite
-  - lib32-libgcrypt
-  - libgcrypt
-  - ncurses
-  - lib32-ncurses
-  - ocl-icd
-  - lib32-ocl-icd
-  - libxslt
-  - lib32-libxslt
-  - gst-plugins-base-libs
-  - lib32-gst-plugins-base-libs
-  - winetricks
-  - protonup-qt
-  - mangohud
-  - lib32-mangohud
-  - gamescope
-  - gamemode
-  - lib32-gamemode
-  - steam
-  - protontricks-git
-  - lutris
-
-flatpaks:
-  - com.discordapp.Discord
-  - com.github.johnfactotum.Foliate
-  - com.github.micahflee.torbrowser-launcher
-  - com.github.tchx84.Flatseal
-  - com.spotify.Client
-  - md.obsidian.Obsidian
-  - us.zoom.Zoom
-  - com.github.IsmaelMartinez.teams_for_linux
+  flatpak: [
+    com.discordapp.Discord, com.github.johnfactotum.Foliate, com.github.micahflee.torbrowser-launcher,
+    com.github.tchx84.Flatseal, com.spotify.Client, md.obsidian.Obsidian, us.zoom.Zoom,
+    com.github.IsmaelMartinez.teams_for_linux,
+  ]

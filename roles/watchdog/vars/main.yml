@@ -1,5 +1,0 @@
-watchdog_kernel_modules:
-  - sp5100_tco
-  - iTCO_wdt
-  - iTCO_vendor_support
-  - wdat_wdt

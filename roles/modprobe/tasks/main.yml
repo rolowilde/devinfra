@@ -1,0 +1,5 @@
+---
+- name: Disable watchdog
+  ansible.builtin.import_tasks:
+    file: watchdog.yml
+  when: modprobe_disable_watchdog

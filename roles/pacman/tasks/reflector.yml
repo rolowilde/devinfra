@@ -1,0 +1,17 @@
+- name: Install reflector
+  community.general.pacman:
+    name: reflector
+    state: present
+
+- name: Configure reflector
+  ansible.builtin.template:
+    src: reflector.j2
+    dest: /etc/xdg/reflector/reflector.conf
+    mode: '0644'
+
+- name: Enable and start reflector.timer
+  ansible.builtin.systemd:
+    name: reflector.timer
+    state: started
+    enabled: true
+  notify: Run reflector

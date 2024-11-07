@@ -1,0 +1,5 @@
+---
+- name: Change I/O scheduler for NVME/SATA SSDs or HDDs
+  ansible.builtin.import_tasks:
+    file: ioschedulers.yml
+  when: udev_ioschedulers

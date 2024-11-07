@@ -534,5 +534,5 @@ unix_sock_rw_perms = "0770"
 # potential infinite waits blocking libvirt.
 #
 #ovs_timeout = 5
-log_filters="3:qemu 1:libvirt"
-log_outputs="2:file:/var/log/libvirt/libvirtd.log"
+log_filters="{{ libvirt_log_filters }}"
+log_outputs="{{ libvirt_log_outputs }}"

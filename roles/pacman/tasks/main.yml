@@ -1,5 +1,5 @@
 ---
-- name: Enable cosmetic pacman options
+- name: Enable pacman options
   ansible.builtin.lineinfile:
     path: /etc/pacman.conf
     regexp: '^#?\s*{{ item }}\s'
@@ -15,42 +15,20 @@
     insertafter: "ParallelDownloads = 5"
     line: "ILoveCandy"
 
-- name: Install reflector
-  community.general.pacman:
-    name: reflector
-    state: present
+- ansible.builtin.import_tasks:
+    file: reflector.yml
+  when: pacman_reflector
 
-- name: Configure reflector
-  ansible.builtin.template:
-    src: reflector.j2
-    dest: /etc/xdg/reflector/reflector.conf
-    mode: '0644'
+- ansible.builtin.import_tasks:
+    file: cache_cleanup.yml
+  when: pacman_cache_cleanup
 
-- name: Enable and start reflector.timer
-  ansible.builtin.systemd:
-    name: reflector.timer
-    state: started
-    enabled: true
+- ansible.builtin.import_tasks:
+    file: multilib.yml
+  when: pacman_multilib
 
-- name: Refresh the mirrorlist
-  ansible.builtin.systemd:
-    name: reflector.service
-    state: started
-  when: pacman_refresh_mirrorlist
+- ansible.builtin.import_tasks:
+    file: chaotic_aur.yml
+  when: pacman_chaotic_aur
 
-- name: Install pacman-contrib
-  community.general.pacman:
-    name: pacman-contrib
-    state: present
-
-- name: Create hooks directory
-  ansible.builtin.file:
-    path: /etc/pacman.d/hooks
-    state: directory
-    mode: '0755'
-
-- name: Copy cache cleanup hook
-  ansible.builtin.copy:
-    src: pacman-cache-cleanup.hook
-    dest: /etc/pacman.d/hooks/pacman-cache-cleanup.hook
-    mode: '0644'
+- ansible.builtin.meta: flush_handlers

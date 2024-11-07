@@ -9,11 +9,3 @@
     src: smb.j2
     dest: /etc/samba/smb.conf
     mode: '0644'
-
-- name: Create ~/public directory
-  ansible.builtin.file:
-    path: "/home/{{ user }}/public"
-    state: directory
-    owner: "{{ user }}"
-    group: "{{ user }}"
-    mode: '0755'

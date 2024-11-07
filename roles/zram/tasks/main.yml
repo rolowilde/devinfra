@@ -5,28 +5,18 @@
     state: present
 
 - name: Create zram-generator.conf
-  ansible.builtin.copy:
-    src: zram-generator.conf
+  ansible.builtin.template:
+    src: zram-generator.j2
     dest: /etc/systemd/zram-generator.conf
     mode: '0644'
+  notify:
+    - Reload systemd daemon
+    - Start zram
 
-- name: Reload systemd targets
-  ansible.builtin.systemd:
-    daemon_reload: true
-
-- name: Start zram
-  ansible.builtin.systemd:
-    state: started
-    name: systemd-zram-setup@zram0
-    enabled: true
-
-- name: Create 99-vm-zram-parameters.conf
-  ansible.builtin.copy:
-    src: 99-vm-zram-parameters.conf
-    dest: /etc/sysctl.d/99-vm-zram-parameters.conf
-    mode: '0644'
-
-- name: Restart systemd-sysctl
-  ansible.builtin.systemd:
-    name: systemd-sysctl
-    state: restarted
+- name: Use optimized sysctl parameters for zram
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-vm-zram-parameters.conf
+  loop: "{{ zram_sysctl_params | dict2items }}"

@@ -5,3 +5,5 @@ skip_list:
   - command-instead-of-shell
   - partial-become[task]
   - yaml[line-length]
+  - name[missing]
+  - name[play]

@@ -1,0 +1,4 @@
+---
+zram_devices:
+  - compression_algorithm: zstd
+    size: ram / 2

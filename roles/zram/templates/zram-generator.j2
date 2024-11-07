@@ -1,0 +1,5 @@
+{% for zram in zram_devices %}
+[zram{{ loop.index0 }}]
+compression-algorithm = {{ zram.compression_algorithm }}
+zram-size = {{ zram.size }}
+{% endfor %}

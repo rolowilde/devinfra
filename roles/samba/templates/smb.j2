@@ -4,7 +4,7 @@ server string = {{ ansible_hostname }}
 server role = standalone server
 log level = 0
 log file = /dev/null
-public = yes
+public = no
 writable = yes
 printable = no
 read only = no
@@ -19,6 +19,15 @@ force directory mode = 02775
 inherit permissions = no
 store dos attributes = no
 
-[public]
-comment = public
-path = /home/{{ user }}/public
+{% for share in samba_shares %}
+[{{ share.name }}]
+path = {{ share.path }}
+writable = {{ share.writable | default('yes') }}
+public = {{ share.public | default('no') }}
+printable = {{ share.printable | default('no') }}
+read only = {{ share.read_only | default('no') }}
+create mask = {{ share.create_mask | default('0644') }}
+directory mask = {{ share.directory_mask | default('02775') }}
+force create mode = {{ share.force_create_mode | default('0664') }}
+force directory mode = {{ share.force_directory_mode | default('02775') }}
+{% endfor %}

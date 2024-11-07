@@ -1,4 +1,11 @@
 ---
+- name: Install dependencies
+  community.general.pacman:
+    name:
+      - git
+      - zsh
+    state: present
+
 - name: Clone dotfile repo to $HOME/.dots
   ansible.builtin.git:
     repo: https://github.com/rowlul/dots.git

@@ -1,0 +1,17 @@
+---
+- name: Install pacman-contrib
+  community.general.pacman:
+    name: pacman-contrib
+    state: present
+
+- name: Create hooks directory
+  ansible.builtin.file:
+    path: /etc/pacman.d/hooks
+    state: directory
+    mode: '0755'
+
+- name: Copy cache cleanup hook
+  ansible.builtin.copy:
+    src: pacman-cache-cleanup.hook
+    dest: /etc/pacman.d/hooks/pacman-cache-cleanup.hook
+    mode: '0644'

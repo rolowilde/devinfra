@@ -1,51 +1,95 @@
 ---
-- name: Provision dev machine infrastructure
+- name: Provision an Arch Linux workstation
   hosts: all
   become: true
+  gather_facts: true
 
-  tasks:
-    - name: Ensure running distribution is Arch Linux
-      ansible.builtin.assert:
-        that: ansible_distribution == "Archlinux"
-      any_errors_fatal: true
-
+  pre_tasks:
     - name: Get user {{ user }}
+      tags: user
       ansible.builtin.getent:
         database: passwd
         key: "{{ user }}"
-      any_errors_fatal: true
 
     - name: Store user home path
+      tags: user
       ansible.builtin.set_fact:
         user_home: "{{ getent_passwd[user][4] }}"
 
-    - name: Include run roles
+  roles:
+    - { role: pacman, tags: pacman }
+    - { role: systemd, tags: systemd }
+    - { role: modprobe, tags: modprobe }
+    - { role: udev, tags: udev }
+    - { role: zram, tags: zram }
+    - { role: ananicy, tags: ananicy }
+
+    - { role: sshd, tags: sshd }
+    - { role: samba, tags: [samba, smbd, smb] }
+    - { role: libvirt, tags: libvirt }
+    - { role: docker, tags: docker }
+
+    - { role: dots, tags: [dots, dotfiles] }
+
+  tasks:
+    - name: Include dynamic roles
+      tags: run
       ansible.builtin.include_role:
         name: "{{ item }}"
       loop: "{{ run }}"
 
-    - name: Include post run roles
-      ansible.builtin.include_role:
-        name: "{{ item }}"
-      loop: "{{ post_run }}"
-      when: post_run is defined and post_run | length > 0
-
-    - name: Install packages
-      community.general.pacman:
-        name: "{{ packages }}"
-        state: present
-      when: packages is defined and packages | length > 0
-
-    - name: Post install packages
-      community.general.pacman:
-        name: "{{ packages }}"
-        state: present
-      when: post_packages is defined and packages | length > 0
-
-    - name: Install flatpaks
-      community.general.flatpak:
-        name: "{{ flatpaks }}"
-        state: present
+    - name: Set user shell
+      tags: user
+      ansible.builtin.user:
+        name: "{{ user }}"
+        shell: "{{ user.shell }}"
       when: |
-        flatpak is defined and flatpak is true and
-        flatpaks is defined and flatpaks | length > 0
+        shell is defined
+        and shell | length > 0
+
+    - name: Enable and start user services
+      tags: services
+      ansible.builtin.systemd:
+        service: "{{ user.services }}"
+        state: started
+        scope: user
+        enabled: true
+      become_user: "{{ user }}"
+      when: |
+        user_services is defined
+        and user_services | length > 0
+
+    - name: Install software
+      tags: software
+      when: packages is defined
+      block:
+        - name: Install pacman packages
+          tags: pacman
+          community.general.pacman:
+            name: "{{ packages.pacman }}"
+          when: |
+            packages.pacman is defined
+            and packages.pacman | length > 0
+
+        - when: |
+            packages.flatpak is defined
+            and packages.flatpak | length > 0
+          tags: flatpak
+          block:
+            - ansible.builtin.include_role:
+                name: flatpak
+
+            - name: Install flatpak packages
+              community.general.flatpak:
+                name: "{{ packages.flatpak }}"
+
+    - name: Enable and start system services
+      tags: services
+      ansible.builtin.systemd:
+        service: "{{ system_services }}"
+        state: started
+        scope: system
+        enabled: true
+      when: |
+        system_services is defined
+        and system_services | length > 0

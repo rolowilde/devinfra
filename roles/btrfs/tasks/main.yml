@@ -1,5 +1,5 @@
 ---
-- name: Ensure btrfs-progs are installed
+- name: Install btrfs-progs
   community.general.pacman:
     name: btrfs-progs
     state: present

@@ -1,0 +1,10 @@
+- name: Include multilib repository in pacman.conf
+  ansible.builtin.blockinfile:
+    path: /etc/pacman.conf
+    prepend_newline: true
+    append_newline: true
+    marker: "# {mark} ANSIBLE MANAGED BLOCK :: MULTILIB"
+    block: |
+      [multilib]
+      Include = /etc/pacman.d/mirrorlist
+  notify: Refresh pacman cache

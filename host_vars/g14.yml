@@ -1,6 +1,1 @@
-post_run:
-  - amdgpu
-  - desktop
-  - gnome
-  - flatpak
-  - g14
+run: [btrfs, amdgpu, desktop, gnome, asusd]
