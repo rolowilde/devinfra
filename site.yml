@@ -3,21 +3,29 @@
   hosts: all
   become: true
   gather_facts: true
+  tags: main
 
   pre_tasks:
     - name: Get user {{ user }}
-      tags: user
+      tags: always
       ansible.builtin.getent:
         database: passwd
         key: "{{ user }}"
 
     - name: Store user home path
-      tags: user
+      tags: always
       ansible.builtin.set_fact:
         user_home: "{{ getent_passwd[user][4] }}"
 
+    - name: Check for btrfs in /etc/fstab
+      ansible.builtin.shell:
+        cmd: grep -q 'btrfs' /etc/fstab
+      register: btrfs_grep
+      ignore_errors: true
+
   roles:
     - { role: pacman, tags: pacman }
+    - { role: btrfs, tags: btrfs, when: btrfs_grep is defined and btrfs_grep.rc == 0 }
     - { role: systemd, tags: systemd }
     - { role: modprobe, tags: modprobe }
     - { role: udev, tags: udev }
@@ -32,21 +40,6 @@
     - { role: dots, tags: [dots, dotfiles] }
 
   tasks:
-    - name: Include dynamic roles
-      tags: run
-      ansible.builtin.include_role:
-        name: "{{ item }}"
-      loop: "{{ run }}"
-
-    - name: Set user shell
-      tags: user
-      ansible.builtin.user:
-        name: "{{ user }}"
-        shell: "{{ user.shell }}"
-      when: |
-        shell is defined
-        and shell | length > 0
-
     - name: Enable and start user services
       tags: services
       ansible.builtin.systemd:
@@ -59,6 +52,14 @@
         user_services is defined
         and user_services | length > 0
 
+- ansible.builtin.import_playbook: ga402rk.yml
+
+- name: Configure system and install packages
+  hosts: all
+  tags: final
+  gather_facts: false
+
+  tasks:
     - name: Install software
       tags: software
       when: packages is defined

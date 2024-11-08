@@ -1,1 +1,1 @@
-run: [btrfs, amdgpu, desktop, gnome, asusd]
+---

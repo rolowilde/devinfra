@@ -1,0 +1,109 @@
+---
+- name: Provision GA402RK laptop
+  hosts: ga402rk
+  tags: ga402rk
+  become: true
+  gather_facts: false
+
+  roles:
+    - { role: amdgpu, tags: amdgpu }
+    - { role: desktop, tags: desktop }
+    - { role: gnome, tags: gnome }
+
+  tasks:
+    - name: Enable fstrim timer
+      ansible.builtin.systemd:
+        service: fstrim.timer
+        state: started
+        enabled: true
+
+    - name: Import g14 repository key
+      community.general.pacman_key:
+        id: 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+        keyserver: keyserver.ubuntu.com
+        state: present
+
+    - name: Include g14 repository in pacman.conf
+      ansible.builtin.blockinfile:
+        path: /etc/pacman.conf
+        prepend_newline: true
+        append_newline: true
+        marker: "# {mark} ANSIBLE MANAGED BLOCK :: G14"
+        insertbefore: "^# BEGIN ANSIBLE MANAGED BLOCK :: CHAOTIC_AUR$"
+        block: |
+          [g14]
+          Server = https://arch.asus-linux.org
+
+    - name: Refresh pacman cache
+      community.general.pacman:
+        update_cache: true
+
+    - name: Install ROG packages
+      community.general.pacman:
+        name:
+          - power-profiles-daemon
+          - asusctl
+          - supergfxctl
+          - switcheroo-control
+          - rog-control-center
+        state: present
+
+    - name: Create supergfxctl.conf
+      ansible.builtin.copy:
+        dest: /etc/supergfxd.conf
+        content: |
+          {
+            "mode": "Hybrid",
+            "vfio_enable": false,
+            "vfio_save": false,
+            "always_reboot": false,
+            "no_logind": false,
+            "logout_timeout_s": 180,
+            "hotplug_type": "Asus"
+          }
+        mode: '0644'
+
+    - name: Enable and start services
+      ansible.builtin.systemd:
+        name: "{{ item }}.service"
+        state: started
+        enabled: true
+      loop:
+        - power-profiles-daemon
+        - asusd
+        - supergfxd
+        - switcheroo-control
+
+    - name: Set charge limit
+      ansible.builtin.command:
+        cmd: asusctl -c 60
+
+    - name: Set fan curves
+      ansible.builtin.command:
+        cmd: "{{ item }}"
+      vars:
+        fan_cpu: 20c:0%,49c:0%,58c:1%,62c:29%,65c:50%,72c:100%,80c:100%,100c:100%
+        fan_gpu: 20c:0%,52c:0%,56c:20%,60c:40%,68c:51%,70c:100%,80c:100%,100c:100%
+      loop:
+        - asusctl fan-curve -m Balanced -f cpu -D {{ fan_cpu }} -e true
+        - asusctl fan-curve -m Balanced -f gpu -D {{ fan_gpu }} -e true
+        - asusctl fan-curve -m Performance -f cpu -D {{ fan_cpu }} -e true
+        - asusctl fan-curve -m Performance -f gpu -D {{ fan_gpu }} -e true
+
+    - name: Disable anime
+      ansible.builtin.command:
+        cmd: "asusctl anime -e false"
+
+    - name: Disable boot sound
+      ansible.builtin.command:
+        cmd: "asusctl bios -S false"
+
+    - name: Enable panel overdrive
+      ansible.builtin.command:
+        cmd: "asusctl bios -O true"
+
+    - name: Install packages
+      community.general.pacman:
+        name:
+          - nvme-cli
+          - powertop
