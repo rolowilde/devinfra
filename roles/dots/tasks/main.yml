@@ -35,3 +35,8 @@
     scope: local
     repo: "{{ user_home }}/.dots"
   become_user: "{{ user }}"
+
+- name: Set user shell to /bin/zsh
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: "/bin/zsh"
