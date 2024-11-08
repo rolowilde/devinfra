@@ -14,4 +14,8 @@
     name: reflector.timer
     state: started
     enabled: true
-  notify: Run reflector
+
+- name: Run reflector
+  ansible.builtin.systemd:
+    name: reflector.service
+    state: started

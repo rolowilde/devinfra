@@ -7,4 +7,3 @@
     block: |
       [multilib]
       Include = /etc/pacman.d/mirrorlist
-  notify: Refresh pacman cache

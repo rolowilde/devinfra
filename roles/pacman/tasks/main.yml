@@ -31,4 +31,6 @@
     file: chaotic_aur.yml
   when: pacman_chaotic_aur
 
-- ansible.builtin.meta: flush_handlers
+- name: Refresh pacman cache
+  community.general.pacman:
+    update_cache: true

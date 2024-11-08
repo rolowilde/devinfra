@@ -1,9 +1,0 @@
----
-- name: Run reflector
-  ansible.builtin.systemd:
-    name: reflector.service
-    state: started
-
-- name: Refresh pacman cache
-  community.general.pacman:
-    update_cache: true
