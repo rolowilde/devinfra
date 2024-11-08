@@ -1,6 +1,6 @@
 ---
 - name: Install dependencies
-  community.general.pacman:
+  ansible.builtin.package:
     name:
       - git
       - zsh
