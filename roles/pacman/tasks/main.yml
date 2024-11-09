@@ -16,14 +16,6 @@
     line: "ILoveCandy"
 
 - ansible.builtin.import_tasks:
-    file: reflector.yml
-  when: pacman_reflector
-
-- ansible.builtin.import_tasks:
-    file: cache_cleanup.yml
-  when: pacman_cache_cleanup
-
-- ansible.builtin.import_tasks:
     file: multilib.yml
   when: pacman_multilib
 
@@ -34,3 +26,11 @@
 - name: Refresh pacman cache
   community.general.pacman:
     update_cache: true
+
+- ansible.builtin.import_tasks:
+    file: reflector.yml
+  when: pacman_reflector
+
+- ansible.builtin.import_tasks:
+    file: cache_cleanup.yml
+  when: pacman_cache_cleanup
