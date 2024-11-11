@@ -1,0 +1,17 @@
+---
+- name: Gather kernel facts
+  ansible.builtin.setup:
+    gather_subset: kernel
+
+- name: Determine if running archiso
+  ansible.builtin.set_fact:
+    meta_archiso: "{{
+        'archisobasedir' in ansible_cmdline and
+        'archisosearchuuid' in ansible_cmdline and
+        ansible_hostname == 'archiso'
+      }}"
+
+- ansible.builtin.meta: end_play
+  when:
+    - (meta_archiso and meta_end_host_if_archiso) or
+      (not meta_archiso and not meta_end_host_if_archiso)

@@ -9,34 +9,34 @@
 - name: Clone dotfile repo to $HOME/.dots
   ansible.builtin.git:
     repo: https://github.com/rowlul/dots.git
-    dest: "{{ user_home }}/.dots"
+    dest: "$HOME/.dots"
     bare: true
-  become_user: "{{ user }}"
+  become: false
 
 - name: Check out dotfile repo to $HOME
   ansible.builtin.command: # built-in module can't replicate this behavior
-    cmd: '/usr/bin/git --git-dir="{{ user_home }}/.dots/" --work-tree="{{ user_home }}/" checkout' # noqa: command-instead-of-module
-    creates: "{{ user_home }}/.zshenv"
-  ignore_errors: true # noqa: ignore-errors
-  become_user: "{{ user }}"
+    cmd: '/usr/bin/git --git-dir="$HOME/.dots/" --work-tree="$HOME/" checkout' # noqa: command-instead-of-module
+    creates: "$HOME/.zshenv"
+  failed_when: false
+  become: false
 
 - name: Turn off status.showUntrackedFiles
   community.general.git_config:
     name: status.showUntrackedFiles
     value: false
     scope: local
-    repo: "{{ user_home }}/.dots"
-  become_user: "{{ user }}"
+    repo: "$HOME/.dots"
+  become: false
 
 - name: Set origin url to ssh
   community.general.git_config:
     name: remote.origin.url
     value: git@github.com:rowlul/dots.git
     scope: local
-    repo: "{{ user_home }}/.dots"
-  become_user: "{{ user }}"
+    repo: "$HOME/.dots"
+  become: false
 
 - name: Set user shell to /bin/zsh
   ansible.builtin.user:
-    name: "{{ user }}"
+    name: "{{ ansible_user }}"
     shell: "/bin/zsh"

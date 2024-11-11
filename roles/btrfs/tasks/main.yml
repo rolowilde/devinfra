@@ -1,20 +1,29 @@
 ---
-- name: Install btrfs-progs
-  community.general.pacman:
-    name: btrfs-progs
-    state: present
+- name: Check for btrfs in /etc/fstab
+  ansible.builtin.shell:
+    cmd: grep -q 'btrfs' /etc/fstab
+  register: btrfs_grep
+  failed_when: false
 
-- name: Install btrfsmaintenance
-  community.general.pacman:
-    name: btrfsmaintenance
-    state: present
+- name: Configure btrfs maintenance if any btrfs partition is in fstab
+  when: btrfs_grep.rc == 0
+  block:
+    - name: Install btrfs-progs
+      community.general.pacman:
+        name: btrfs-progs
+        state: present
 
-- name: Enable systemd timers
-  ansible.builtin.systemd:
-    name: "{{ item }}.timer"
-    state: started
-    enabled: true
-  loop:
-    - btrfs-balance
-    - btrfs-scrub
-    - fstrim
+    - name: Install btrfsmaintenance
+      community.general.pacman:
+        name: btrfsmaintenance
+        state: present
+
+    - name: Enable systemd timers
+      ansible.builtin.systemd:
+        name: "{{ item }}.timer"
+        state: started
+        enabled: true
+      loop:
+        - btrfs-balance
+        - btrfs-scrub
+        - fstrim

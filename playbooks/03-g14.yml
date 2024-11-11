@@ -1,22 +1,16 @@
 ---
-- name: Provision GA402RK laptop
-  hosts: ga402rk
-  tags: ga402rk
+- name: Provision an ASUS ROG Zephyrus G14 2022 laptop
+  hosts: g14
+  tags: g14
   become: true
-  gather_facts: false
 
   roles:
+    - { role: meta }
     - { role: amdgpu, tags: amdgpu }
     - { role: desktop, tags: desktop }
     - { role: gnome, tags: gnome }
 
   tasks:
-    - name: Enable fstrim timer
-      ansible.builtin.systemd:
-        service: fstrim.timer
-        state: started
-        enabled: true
-
     - name: Import g14 repository key
       community.general.pacman_key:
         id: 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
@@ -101,9 +95,3 @@
     - name: Enable panel overdrive
       ansible.builtin.command:
         cmd: "asusctl bios -O true"
-
-    - name: Install packages
-      community.general.pacman:
-        name:
-          - nvme-cli
-          - powertop

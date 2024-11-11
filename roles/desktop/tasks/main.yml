@@ -45,14 +45,15 @@
 
 - name: Check if user-dirs.dirs exists
   ansible.builtin.stat:
-    path: "{{ user_home }}/.config/user-dirs.dirs"
+    path: "$HOME/.config/user-dirs.dirs"
   register: user_dirs_fs
+  become: false
 
 - name: Read user-dirs.dirs
   ansible.builtin.command:
-    cmd: cat "{{ user_home }}/.config/user-dirs.dirs"
+    cmd: cat "$HOME/.config/user-dirs.dirs"
   register: user_dirs_file
-  become_user: "{{ user }}"
+  become: false
   when: user_dirs_fs.stat.exists
 
 - name: Parse and create XDG directories
@@ -61,27 +62,27 @@
     state: directory
     mode: '0755'
   loop: "{{ user_dirs_file.stdout_lines | select('match', '^XDG_.*_DIR') | map('regex_replace', '^XDG_.*_DIR=\"(.*?)\"$', '\\1') | list }}"
-  become_user: "{{ user }}"
+  become: false
   when: user_dirs_fs.stat.exists
 
 - name: Update xdg-user-dirs
   ansible.builtin.command:
     cmd: xdg-user-dirs-update
-  register: xdg_user_dirs_update
+  become: false
 
 - name: Create ~/.local/share/applications
   ansible.builtin.file:
-    path: "{{ user_home }}/.local/share/applications"
+    path: "$HOME/.local/share/applications"
     state: directory
     mode: '0755'
-  become_user: "{{ user }}"
+  become: false
 
 - name: Hide certain .desktop files
   ansible.builtin.copy:
-    dest: "{{ user_home }}/.local/share/applications/{{ item }}.desktop"
+    dest: "$HOME/.local/share/applications/{{ item }}.desktop"
     content: |
       [Desktop Entry]
       NoDisplay=true
     mode: '0644'
   loop: "{{ desktop_files_to_hide }}"
-  become_user: "{{ user }}"
+  become: false

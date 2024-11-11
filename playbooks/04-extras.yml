@@ -1,0 +1,33 @@
+---
+- name: Perform extra configuration
+  hosts: all
+  tags: extras
+
+  roles:
+    - { role: meta }
+
+  tasks:
+    - name: Install software
+      tags: software
+      become: true
+      when: packages is defined
+      block:
+        - name: Install pacman packages
+          tags: pacman
+          community.general.pacman:
+            name: "{{ packages.pacman }}"
+          when:
+            - packages.pacman is defined
+            - packages.pacman | length > 0
+
+        - when:
+            - packages.flatpak is defined
+            - packages.flatpak | length > 0
+          tags: flatpak
+          block:
+            - ansible.builtin.include_role:
+                name: flatpak
+
+            - name: Install flatpak packages
+              community.general.flatpak:
+                name: "{{ packages.flatpak }}"

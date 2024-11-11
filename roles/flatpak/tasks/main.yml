@@ -1,6 +1,6 @@
 ---
 - name: Install flatpak
-  community.general.pacman:
+  ansible.builtin.package:
     name: flatpak
     state: present
 

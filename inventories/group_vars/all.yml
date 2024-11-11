@@ -1,19 +1,19 @@
 ---
 user: rowlul
-shell: /bin/zsh
-
-user_services: []
-system_services: []
+timezone: Europe/Riga
+locales:
+  - en_US.UTF-8 UTF-8
+  - lv_LV.UTF-8 UTF-8
 
 packages:
   pacman: [
     # Core Utilities & System
     git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
     btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
-    fastfetch, yank, speedtest-cli, tldr, man, jq, yq, figlet, trash-cli,
-    gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli, cmatrix, unrar,
-    unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most, yay, inxi,
-    powertop,
+    fastfetch, yank, speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq,
+    figlet, trash-cli, gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli,
+    cmatrix, unrar, unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most,
+    yay, inxi, powertop, nvme-cli,
 
     # Development Tools & SDKs
     base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,

@@ -1,0 +1,22 @@
+---
+- name: Provision an Arch Linux workstation
+  hosts: all
+  tags: archlinux
+  become: true
+
+  roles:
+    - { role: meta }
+    - { role: pacman, tags: pacman }
+    - { role: btrfs, tags: btrfs }
+    - { role: systemd, tags: systemd }
+    - { role: modprobe, tags: modprobe }
+    - { role: udev, tags: udev }
+    - { role: zram, tags: zram }
+    - { role: ananicy, tags: ananicy }
+
+    - { role: sshd, tags: sshd }
+    - { role: samba, tags: [samba, smbd, smb] }
+    - { role: libvirt, tags: libvirt }
+    - { role: docker, tags: docker }
+
+    - { role: dots, tags: [dots, dotfiles] }
