@@ -23,7 +23,7 @@
 - name: Turn off status.showUntrackedFiles
   community.general.git_config:
     name: status.showUntrackedFiles
-    value: false
+    value: "no"
     scope: local
     repo: "$HOME/.dots"
   become: false
