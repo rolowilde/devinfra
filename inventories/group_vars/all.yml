@@ -18,45 +18,45 @@ pacman_reflector_args: |
 desktop_files_to_hide: [
   avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
-  protontricks, qv4l2, qvidcap, winetricks
+  protontricks, qv4l2, qvidcap, winetricks,
 ]
 
 group_pacman_packages: [
-    # Core Utilities & System
-    git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
-    btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
-    fastfetch, yank, speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq,
-    figlet, trash-cli, gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli,
-    cmatrix, unrar, unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most,
-    yay, inxi, powertop, nvme-cli,
+  # Core Utilities & System
+  git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
+  btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
+  fastfetch, yank, speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq,
+  figlet, trash-cli, gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli,
+  cmatrix, unrar, unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most,
+  yay, inxi, powertop, nvme-cli,
 
-    # Development Tools & SDKs
-    base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-    go, goreleaser, nodejs, npm, python, python-pip, python-poetry, python-black,
-    flake8, mypy, python-isort, python-flake8-isort, rustup, cargo-binstall,
-    cargo-sort, cargo-watch, cargo-bloat, cargo-update, cargo-release,
+  # Development Tools & SDKs
+  base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
+  go, goreleaser, nodejs, npm, python, python-pip, python-poetry, python-black,
+  flake8, mypy, python-isort, python-flake8-isort, rustup, cargo-binstall,
+  cargo-sort, cargo-watch, cargo-bloat, cargo-update, cargo-release,
 
-    # Applications
-    floorp, wezterm, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
-    visual-studio-code-bin, gparted, libreoffice-fresh,
+  # Applications
+  floorp, wezterm, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
+  visual-studio-code-bin, gparted, libreoffice-fresh,
 
-    # Fonts
-    ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
-    ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font, noto-fonts,
-    noto-fonts-cjk,
+  # Fonts
+  ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
+  ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font, noto-fonts,
+  noto-fonts-cjk,
 
-    # Gaming & Compatibility
-    wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
-    v4l-utils, lib32-v4l-utils, libpulse, lib32-libpulse, alsa-plugins,
-    lib32-alsa-plugins, lib32-alsa-lib, libxcomposite, lib32-libxcomposite,
-    libxinerama, lib32-libxinerama, gst-plugins-base-libs, lib32-gst-plugins-base-libs,
-    sdl2, lib32-sdl2, libpng, lib32-libpng, mpg123, lib32-mpg123, openal,
-    libgpg-error, lib32-libgpg-error, libjpeg-turbo, lib32-libjpeg-turbo,
-    sqlite, lib32-sqlite, lib32-libgcrypt, libgcrypt, ncurses, lib32-ncurses,
-    ocl-icd, lib32-ocl-icd, libxslt, lib32-libxslt, winetricks, protonup-qt,
-    mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
-    protontricks-git, lutris,
-  ]
+  # Gaming & Compatibility
+  wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
+  v4l-utils, lib32-v4l-utils, libpulse, lib32-libpulse, alsa-plugins,
+  lib32-alsa-plugins, lib32-alsa-lib, libxcomposite, lib32-libxcomposite,
+  libxinerama, lib32-libxinerama, gst-plugins-base-libs, lib32-gst-plugins-base-libs,
+  sdl2, lib32-sdl2, libpng, lib32-libpng, mpg123, lib32-mpg123, openal,
+  libgpg-error, lib32-libgpg-error, libjpeg-turbo, lib32-libjpeg-turbo,
+  sqlite, lib32-sqlite, lib32-libgcrypt, libgcrypt, ncurses, lib32-ncurses,
+  ocl-icd, lib32-ocl-icd, libxslt, lib32-libxslt, winetricks, protonup-qt,
+  mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
+  protontricks-git, lutris,
+]
 
 group_flatpak_packages: [
   com.discordapp.Discord, com.github.johnfactotum.Foliate, com.github.micahflee.torbrowser-launcher,
