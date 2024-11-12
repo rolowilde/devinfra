@@ -16,7 +16,6 @@
     - ansible.builtin.assert:
         that:
           - 'dev is defined and dev | length > 0'
-          - 'cryptroot is defined and cryptroot is boolean'
           - 'timezone is defined and timezone | length > 0'
           - 'locales is defined and locales | length > 0'
           - 'hostname is defined and hostname | length > 0'
@@ -29,6 +28,9 @@
         that: 'dev in ansible_devices'
         fail_msg: Install device not detected
       tags: [partition, mount]
+
+    - ansible.builtin.set_fact:
+        cryptroot: "{{ cryptroot | default(true) | bool }}"
 
     - ansible.builtin.assert:
         that:
