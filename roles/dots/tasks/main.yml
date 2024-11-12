@@ -36,7 +36,12 @@
     repo: "$HOME/.dots"
   become: false
 
-- name: Set user shell to /bin/zsh
+- name: Get running user
+  ansible.builtin.set_fact:
+    __env_username: "{{ lookup('env', 'USER') }}"
+  become: false
+
+- name: Set running user's shell to /bin/zsh
   ansible.builtin.user:
-    name: "{{ ansible_user }}"
+    name: "{{ __env_username }}"
     shell: "/bin/zsh"

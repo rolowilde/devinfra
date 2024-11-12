@@ -14,8 +14,13 @@
     name: docker
     system: true
 
+- name: Get running user
+  ansible.builtin.set_fact:
+    __env_username: "{{ lookup('env', 'USER') }}"
+  become: false
+
 - name: Add user to docker group
   ansible.builtin.user:
-    name: "{{ ansible_user }}"
+    name: "{{ __env_username }}"
     groups: docker
     append: true

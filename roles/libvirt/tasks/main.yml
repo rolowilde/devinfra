@@ -22,6 +22,11 @@
     name: qemu-desktop
     state: present
 
+- name: Get running user
+  ansible.builtin.set_fact:
+    __env_username: "{{ lookup('env', 'USER') }}"
+  become: false
+
 - name: Create libvirtd.conf
   ansible.builtin.template:
     src: libvirtd.j2
@@ -41,6 +46,6 @@
 
 - name: Add user to libvirt group
   ansible.builtin.user:
-    name: "{{ ansible_user }}"
+    name: "{{ __env_username }}"
     groups: libvirt
     append: true
