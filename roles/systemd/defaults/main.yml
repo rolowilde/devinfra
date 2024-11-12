@@ -1,2 +1,2 @@
 ---
-systemd_journald: true
+systemd_journald_limit: 50M

@@ -1,4 +1,6 @@
 inventories/**/*
 !inventories/local.yml
 !inventories/group_vars
-!inventories/group_vars/all.yml
+!inventories/group_vars/*.yml
+!inventories/host_vars
+!inventories/host_vars/*.yml

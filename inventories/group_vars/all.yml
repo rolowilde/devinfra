@@ -5,8 +5,22 @@ locales:
   - en_US.UTF-8 UTF-8
   - lv_LV.UTF-8 UTF-8
 
-packages:
-  pacman: [
+pacman_multilib: true
+pacman_chaotic_aur: true
+pacman_reflector: true
+pacman_cache_cleanup: true
+pacman_reflector_args: |
+  --country LV,FI,SE
+  --protocol https
+  --sort rate
+
+desktop_files_to_hide: [
+  avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
+  jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
+  protontricks, qv4l2, qvidcap, winetricks
+]
+
+group_pacman_packages: [
     # Core Utilities & System
     git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
     btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
@@ -43,8 +57,8 @@ packages:
     protontricks-git, lutris,
   ]
 
-  flatpak: [
-    com.discordapp.Discord, com.github.johnfactotum.Foliate, com.github.micahflee.torbrowser-launcher,
-    com.github.tchx84.Flatseal, com.spotify.Client, md.obsidian.Obsidian, us.zoom.Zoom,
-    com.github.IsmaelMartinez.teams_for_linux,
-  ]
+group_flatpak_packages: [
+  com.discordapp.Discord, com.github.johnfactotum.Foliate, com.github.micahflee.torbrowser-launcher,
+  com.github.tchx84.Flatseal, com.spotify.Client, md.obsidian.Obsidian, us.zoom.Zoom,
+  com.github.IsmaelMartinez.teams_for_linux,
+]

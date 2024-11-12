@@ -1,7 +1,0 @@
----
-- name: Create 60-ioschedulers.rules
-  ansible.builtin.copy:
-    src: 60-ioschedulers.rules
-    dest: /etc/udev/rules.d/60-ioschedulers.rules
-    mode: '0644'
-  notify: Reload udev rules

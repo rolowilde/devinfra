@@ -1,0 +1,9 @@
+---
+dev: nvme0n1
+hostname: G14
+
+pacman_chaotic_aur: true
+
+host_roles: [amdgpu, desktop, gnome]
+host_pacman_packages: [power-profiles-daemon, asusctl, supergfxctl, switcheroo-control, rog-control-center]
+host_systemd_units: [power-profiles-daemon, asusd, supergfxd, switcheroo-control]

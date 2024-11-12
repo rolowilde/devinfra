@@ -1,0 +1,7 @@
+---
+# Pop!_OS defaults
+sysctl_dirty_bytes: 268435456
+sysctl_dirty_background_bytes: 134217728
+
+# SteamOS defaults for gaming
+sysctl_max_map_count: 2147483642

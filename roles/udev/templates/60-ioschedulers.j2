@@ -1,0 +1,4 @@
+ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="{{ udev_hdd_ioscheduler }}"
+ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="mmcblk?", ATTR{queue/scheduler}="{{ udev_emmc_ioscheduler }}"
+ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="nvme?n?", ATTR{queue/scheduler}="{{ udev_ssd_ioscheduler }}"
+ACTION=="add|change", SUBSYSTEM=="block", ATTR{queue/rotational}=="0", KERNEL=="sd?", ATTR{queue/scheduler}="{{ udev_nvme_ioscheduler }}"

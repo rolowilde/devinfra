@@ -1,5 +1,4 @@
 ---
 - ansible.builtin.import_playbook: ./playbooks/01-archiso.yml
 - ansible.builtin.import_playbook: ./playbooks/02-archlinux.yml
-- ansible.builtin.import_playbook: ./playbooks/03-g14.yml
-- ansible.builtin.import_playbook: ./playbooks/04-extras.yml
+- ansible.builtin.import_playbook: ./playbooks/03-extras.yml

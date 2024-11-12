@@ -1,8 +1,8 @@
 ---
-pacman_multilib: true
-pacman_chaotic_aur: true
-pacman_reflector: true
-pacman_cache_cleanup: true
+pacman_multilib: false
+pacman_chaotic_aur: false
+pacman_reflector: false
+pacman_cache_cleanup: false
 pacman_reflector_args: |
   --country LV,FI,SE
   --protocol https

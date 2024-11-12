@@ -1,2 +1,6 @@
 ---
-udev_ioschedulers: true
+# Pop!_OS defaults
+udev_hdd_ioscheduler: bfq
+udev_emmc_ioscheduler: bfq
+udev_ssd_ioscheduler: kyber
+udev_nvme_ioscheduler: kyber

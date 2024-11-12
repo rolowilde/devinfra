@@ -38,10 +38,7 @@
       ansible.builtin.import_role:
         name: pacman
       vars:
-        pacman_multilib: false
-        pacman_chaotic_aur: false
         pacman_reflector: true
-        pacman_cache_cleanup: false
       tags: pacman
 
     - name: Read device

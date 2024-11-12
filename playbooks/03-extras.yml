@@ -1,0 +1,120 @@
+---
+- name: Provision by host or group
+  hosts: all
+  tags: extras
+  become: true
+
+  roles:
+    - { role: meta }
+
+  tasks:
+    - name: Include host roles
+      tags: [roles, host]
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+      loop: "{{ host_roles }}"
+      when:
+        - host_roles is defined
+        - host_roles | length > 0
+
+    - name: Include group roles
+      tags: [roles, group]
+      ansible.builtin.include_role:
+        name: "{{ item }}"
+      loop: "{{ group_roles }}"
+      when:
+        - group_roles is defined
+        - group_roles | length > 0
+
+    - name: Install host pacman packages
+      tags: [software, pacman, host]
+      community.general.pacman:
+        name: "{{ host_pacman_packages }}"
+        state: present
+      when:
+        - host_pacman_packages is defined
+        - host_pacman_packages | length > 0
+
+    - name: Install group pacman packages
+      tags: [software, pacman, group]
+      community.general.pacman:
+        name: "{{ group_pacman_packages }}"
+        state: present
+      when:
+        - group_pacman_packages is defined
+        - group_pacman_packages | length > 0
+
+    - name: Install flatpak
+      tags: [software, flatpak, group, host]
+      ansible.builtin.include_role:
+        name: flatpak
+      when:
+        - (group_flatpak_packages is defined and
+          group_flatpak_packages | length > 0) or
+          (host_flatpak_packages is defined and
+          host_flatpak_packages | length > 0)
+
+    - name: Install host flatpak packages
+      tags: [software, flatpak, host]
+      community.general.flatpak:
+        name: "{{ host_flatpak_packages }}"
+        state: present
+      when:
+        - host_flatpak_packages is defined
+        - host_flatpak_packages | length > 0
+
+    - name: Install group flatpak packages
+      tags: [software, flatpak, group]
+      community.general.flatpak:
+        name: "{{ group_flatpak_packages }}"
+        state: present
+      when:
+        - group_flatpak_packages is defined
+        - group_flatpak_packages | length > 0
+
+    - name: Enable and start host systemd units
+      tags: [systemd, host]
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop: "{{ host_systemd_units }}"
+      when:
+        - host_systemd_units is defined
+        - host_systemd_units | length > 0
+
+    - name: Enable and start host systemd user units
+      tags: [systemd, host]
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+        scope: user
+      loop: "{{ host_systemd_user_units }}"
+      when:
+        - host_systemd_user_units is defined
+        - host_systemd_user_units | length > 0
+
+    - name: Enable and start group systemd units
+      tags: [systemd, group]
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      loop: "{{ group_systemd_units }}"
+      when:
+        - group_systemd_units is defined
+        - group_systemd_units | length > 0
+
+    - name: Enable and start group systemd user units
+      tags: [systemd, group]
+      become: false
+      ansible.builtin.systemd:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+        scope: user
+      loop: "{{ group_systemd_user_units }}"
+      when:
+        - group_systemd_user_units is defined
+        - group_systemd_user_units | length > 0
