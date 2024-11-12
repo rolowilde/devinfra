@@ -438,6 +438,14 @@
       when: root_password is undefined or root_password | length == 0
       tags: [root, superuser]
 
+    - name: Copy startup script
+      ansible.builtin.shell:
+        cmd: |
+          if [[ -e /tmp/startup_script ]] && [[ -s /tmp/startup_script ]]; then
+            cp /tmp/startup_script /mnt/root/startup_script
+          fi
+        creates: /mnt/root/startup_script
+
     - ansible.builtin.reboot:
         msg: Host will reboot now
       failed_when: false
