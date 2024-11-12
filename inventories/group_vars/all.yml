@@ -4,6 +4,7 @@ timezone: Europe/Riga
 locales:
   - en_US.UTF-8 UTF-8
   - lv_LV.UTF-8 UTF-8
+cryptroot: true
 
 pacman_multilib: true
 pacman_chaotic_aur: true

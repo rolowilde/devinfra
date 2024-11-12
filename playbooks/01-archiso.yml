@@ -16,12 +16,13 @@
     - ansible.builtin.assert:
         that:
           - 'dev is defined and dev | length > 0'
+          - 'cryptroot is defined and cryptroot is boolean'
           - 'timezone is defined and timezone | length > 0'
           - 'locales is defined and locales | length > 0'
           - 'hostname is defined and hostname | length > 0'
           - 'user is defined and user | length > 0'
           - 'user_password is defined and user | length > 0'
-        fail_msg: Required variable undefined or empty
+        fail_msg: Required variable undefined or empty, or wrong type.
       tags: [partition, timezone, locale, hostname, user]
 
     - ansible.builtin.assert:
@@ -29,16 +30,22 @@
         fail_msg: Install device not detected
       tags: [partition, mount]
 
-    - name: Ping archlinux.org
-      ansible.builtin.command:
-        cmd: ping -c2 archlinux.org
-      tags: [partition, btrfs, pacstrap]
+    - ansible.builtin.assert:
+        that:
+          - cryptroot_passphrase is defined
+          - cryptroot_passphrase | length > 0
+        fail_msg: LUKS2 passphrase not set
+      when: cryptroot
+      tags: [partition, mount]
 
     - name: Setup pacman
       ansible.builtin.import_role:
         name: pacman
       vars:
+        pacman_multilib: false
+        pacman_chaotic_aur: false
         pacman_reflector: true
+        pacman_cache_cleanup: false
       tags: pacman
 
     - name: Read device
@@ -60,10 +67,17 @@
       when: not iknowwhatiamdoing
       tags: partition
 
+    - name: Ensure root container is closed
+      community.crypto.luks_device:
+        name: root
+        state: closed
+      failed_when: false
+      tags: [partition, mount]
+
     - name: Ensure /mnt is unmounted
       ansible.builtin.command:
         cmd: umount -R /mnt
-      when: ansible_mounts | selectattr('mount', 'equalto', '/mnt') | list | length > 0
+      failed_when: false
       tags: [partition, mount]
 
     - name: Remove all partitions from disk
@@ -74,15 +88,15 @@
       loop: "{{ dev_parted.partitions }}"
       tags: partition
 
-    - name: Create an ESP partition
+    - name: Create an EFI partition
       community.general.parted:
         device: "/dev/{{ dev }}"
         number: 1
         state: present
         part_end: 1GiB
-        label: gpt
         flags: [esp]
-      register: dev_esp
+        label: gpt
+        name: EFI
       tags: partition
 
     - name: Create a root btrfs partition
@@ -92,41 +106,41 @@
         state: present
         part_start: 1GiB
         label: gpt
-      register: dev_main
+        name: "{{ 'cryptroot' if cryptroot else 'root' }}"
       tags: partition
 
-    - name: Get partitions
-      ansible.builtin.shell:
-        cmd: |
-          set -o pipefail #
-          lsblk -rno NAME,TYPE | awk -v disk="{{ dev }}" '$2=="part" && $1 ~ disk {print "/dev/" $1}' | sort -V
-      register: lsblk_cmd
-      tags: [partition, mount]
-
     - name: Store partitions
-      ansible.builtin.set_fact: # must be in the exact order!
-        esp_part_file: "{{ lsblk_cmd.stdout_lines[0] }}"
-        root_part_file: "{{ lsblk_cmd.stdout_lines[1] }}"
-      tags: [partition, mount]
-
-    - ansible.builtin.assert:
-        that:
-          - esp_part_file[-1] == '1'
-          - root_part_file[-1] == '2'
-      tags: [partition, mount]
+      ansible.builtin.set_fact:
+        root_part_dev: "{{ '/dev/mapper/root' if cryptroot else '/dev/disk/by-partlabel/root' }}"
+        efi_part_dev: "/dev/disk/by-partlabel/EFI"
+      tags: [partition, btrfs]
 
     - name: Format EFI partition to fat32
       community.general.filesystem:
-        dev: "{{ esp_part_file }}"
+        dev: "{{ efi_part_dev }}"
         state: present
         fstype: vfat
         opts: -n EFI -F 32
         force: true
       tags: partition
 
+    - name: Open an encrypted container on cryptroot
+      community.crypto.luks_device:
+        name: root
+        type: luks2
+        device: /dev/disk/by-partlabel/cryptroot
+        state: opened
+        passphrase: "{{ cryptroot_passphrase }}"
+        cipher: "{{ cryptroot_cipher | default('aes-xts-plain64') }}"
+        hash: "{{ cryptroot_hash | default('sha256') }}"
+        keysize: "{{ cryptroot_keysize | default(256) }}"
+        allow_discards: "{{ cryptroot_allow_discards | default(true) }}"
+      when: cryptroot
+      tags: [partition, mount]
+
     - name: Format root partition to btrfs
       community.general.filesystem:
-        dev: "{{ root_part_file }}"
+        dev: "{{ root_part_dev }}"
         state: present
         fstype: btrfs
         opts: -L root
@@ -136,7 +150,7 @@
     - name: Mount root partition
       ansible.posix.mount:
         path: /mnt
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }}"
@@ -148,7 +162,7 @@
         state: present
         automount: false
         default: false
-        filesystem_device: "{{ root_part_file }}"
+        filesystem_label: root
       loop:
         - '@'
         - '@home'
@@ -166,7 +180,7 @@
     - name: Mount root subvolume @
       ansible.posix.mount:
         path: /mnt
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }},subvol=@"
@@ -188,7 +202,7 @@
     - name: Mount ESP partition
       ansible.posix.mount:
         path: /mnt/boot
-        src: "{{ esp_part_file }}"
+        src: "{{ efi_part_dev }}"
         state: ephemeral
         fstype: vfat
         opts: "{{ vfat_mount_opts }}"
@@ -197,7 +211,7 @@
     - name: Mount @home subvolume
       ansible.posix.mount:
         path: /mnt/home
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }},subvol=@home"
@@ -206,7 +220,7 @@
     - name: Mount @pkg subvolume
       ansible.posix.mount:
         path: /mnt/var/cache/pacman/pkg
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }},subvol=@pkg"
@@ -215,7 +229,7 @@
     - name: Mount @log subvolume
       ansible.posix.mount:
         path: /mnt/var/log
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }},subvol=@log"
@@ -224,7 +238,7 @@
     - name: Mount @snapshots subvolume
       ansible.posix.mount:
         path: /mnt/.snapshots
-        src: "{{ root_part_file }}"
+        src: "{{ root_part_dev }}"
         state: ephemeral
         fstype: btrfs
         opts: "{{ btrfs_mount_opts }},subvol=@snapshots"
@@ -263,6 +277,32 @@
       ansible.builtin.command:
         cmd: "pacstrap -K /mnt base linux-zen linux-firmware btrfs-progs networkmanager python sudo {{ cpu_microcode_package }}"
       tags: pacstrap
+
+    - name: Edit mkinitcpio hooks
+      ansible.builtin.lineinfile:
+        path: /mnt/etc/mkinitcpio.conf
+        regex: '(?m)^(?!#)\s*HOOKS=\([^\)]+\)'
+        line: 'HOOKS=(base systemd microcode kms modconf keyboard block filesystems btrfs sd-encrypt fsck)'
+      when: cryptroot
+      failed_when: false
+      tags: initramfs
+
+    - name: Create crypttab.initramfs
+      community.general.crypttab:
+        name: root
+        backing_device: PARTLABEL=cryptroot
+        path: /mnt/etc/crypttab.initramfs
+        state: present
+        password: none
+      when: cryptroot
+      tags: initramfs
+
+    - name: Regenerate initramfs
+      ansible.builtin.command:
+        cmd: arch-chroot /mnt
+        stdin: mkinitcpio -P
+      when: cryptroot
+      tags: initramfs
 
     - name: Enable network service
       ansible.builtin.command:
