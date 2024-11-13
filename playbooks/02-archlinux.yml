@@ -9,9 +9,7 @@
     - { role: pacman, tags: pacman }
     - { role: btrfs, tags: btrfs }
     - { role: systemd, tags: systemd }
-    - { role: modprobe, tags: modprobe }
     - { role: udev, tags: udev }
-    - { role: sysctl, tags: sysctl }
     - { role: zram, tags: zram }
     - { role: ananicy, tags: ananicy }
 

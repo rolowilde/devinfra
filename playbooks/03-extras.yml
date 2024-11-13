@@ -118,3 +118,25 @@
       when:
         - group_systemd_user_units is defined
         - group_systemd_user_units | length > 0
+
+    - name: Apply sysctl host parameters
+      tags: [sysctl, host]
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        state: present
+      loop: "{{ host_sysctl_params | dict2items }}"
+      when:
+        - host_sysctl_params is defined
+        - host_sysctl_params | length > 0
+
+    - name: Apply sysctl group parameters
+      tags: [sysctl, group]
+      ansible.posix.sysctl:
+        name: "{{ item.key }}"
+        value: "{{ item.value }}"
+        state: present
+      loop: "{{ group_sysctl_params | dict2items }}"
+      when:
+        - group_sysctl_params is defined
+        - group_sysctl_params | length > 0

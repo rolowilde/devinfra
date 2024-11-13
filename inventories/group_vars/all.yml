@@ -15,6 +15,16 @@ pacman_reflector_args: |
   --protocol https
   --sort rate
 
+group_sysctl_params:
+  vm.dirty_bytes: 268435456
+  vm.dirty_background_bytes: 134217728
+  vm.max_map_count: 2147483642
+  kernel.nmi_watchdog: 0
+  kernel.printk: 3 3 3 3
+  kernel.kptr_restrict: 2
+  kernel.kexec_load_disabled: 1
+  kernel.unprivileged_userns_clone: 1
+
 desktop_files_to_hide: [
   avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
