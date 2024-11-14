@@ -140,3 +140,23 @@
       when:
         - group_sysctl_params is defined
         - group_sysctl_params | length > 0
+
+    - name: Apply host kernel blacklist
+      tags: [kernel_blacklist, host]
+      community.general.kernel_blacklist:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ host_kernel_blacklist }}"
+      when:
+        - host_kernel_blacklist is defined
+        - host_kernel_blacklist | length > 0
+
+    - name: Apply group kernel blacklist
+      tags: [kernel_blacklist, group]
+      community.general.kernel_blacklist:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ group_kernel_blacklist }}"
+      when:
+        - group_kernel_blacklist is defined
+        - group_kernel_blacklist | length > 0
