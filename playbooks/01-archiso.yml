@@ -15,40 +15,29 @@
   tasks:
     - ansible.builtin.assert:
         that:
-          - 'dev is defined and dev | length > 0'
-          - 'timezone is defined and timezone | length > 0'
-          - 'locales is defined and locales | length > 0'
-          - 'hostname is defined and hostname | length > 0'
-          - 'user is defined and user | length > 0'
-          - 'user_password is defined and user | length > 0'
-        fail_msg: Required variable undefined or empty, or wrong type.
-      tags: [partition, timezone, locale, hostname, user]
-
-    - ansible.builtin.assert:
-        that: 'dev in ansible_devices'
-        fail_msg: Install device not detected
-      tags: [partition, mount]
-
-    - ansible.builtin.set_fact:
-        cryptroot: "{{ cryptroot | default(true) | bool }}"
+          - dev is defined and dev | length > 0 and
+            dev[:5] != '/dev/' and dev in ansible_devices
+          - cryptroot is defined and cryptroot is boolean
+          - timezone is defined and timezone | length > 0
+          - locales is defined and locales | length > 0
+          - hostname is defined and hostname | length > 0
+          - user is defined and user | length > 0
+          - user_password is defined and user | length > 0
 
     - ansible.builtin.assert:
         that:
           - cryptroot_passphrase is defined
           - cryptroot_passphrase | length > 0
-        fail_msg: LUKS2 passphrase not set
       when: cryptroot
-      tags: [partition, mount]
 
-    - name: Setup pacman
-      ansible.builtin.import_role:
-        name: pacman
-      vars:
-        pacman_multilib: false
-        pacman_chaotic_aur: false
-        pacman_reflector: true
-        pacman_cache_cleanup: false
-      tags: pacman
+    - ansible.builtin.set_fact:
+        kernel: linux-zen
+        kernel_cmdline: >-
+          root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
+          vt.global_cursor_default=0 rd.systemd.show_status=auto
+          rd.udev.log_level=3 audit=0 zswap.enabled=0
+          nowatchdog{% if kernel_opts is defined %} {{ kernel_opts }}{% endif %}
+      tags: [pacstrap, bootctl]
 
     - name: Read device
       community.general.parted:
@@ -277,7 +266,7 @@
 
     - name: Pacstrap base system
       ansible.builtin.command:
-        cmd: "pacstrap -K /mnt base linux-zen linux-firmware btrfs-progs networkmanager python sudo {{ cpu_microcode_package }}"
+        cmd: "pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager python sudo {{ cpu_microcode_package }}"
       tags: pacstrap
 
     - name: Edit mkinitcpio hooks
@@ -334,29 +323,29 @@
           timeout 0
           console-mode keep
           editor no
-          default arch-linux-zen.conf
+          default arch-{{ kernel }}.conf
         mode: '0755'
       tags: bootctl
 
     - name: Create boot loader entry
       ansible.builtin.copy:
-        dest: /mnt/boot/loader/entries/arch-linux-zen.conf
+        dest: /mnt/boot/loader/entries/arch-{{ kernel }}.conf
         content: |
-          title Arch Linux (linux-zen)
-          linux /vmlinuz-linux-zen
-          initrd /initramfs-linux-zen.img
-          options root=LABEL=root rootflags=subvol=@ rw quiet
+          title Arch Linux ({{ kernel }})
+          linux /vmlinuz-{{ kernel }}
+          initrd /initramfs-{{ kernel }}.img
+          options {{ kernel_cmdline }}
         mode: '0755'
       tags: bootctl
 
     - name: Create boot loader entry (fallback initramfs)
       ansible.builtin.copy:
-        dest: /mnt/boot/loader/entries/arch-linux-zen-fallback.conf
+        dest: /mnt/boot/loader/entries/arch-{{ kernel }}-fallback.conf
         content: |
-          title Arch Linux (linux-zen) fallback initramfs
-          linux /vmlinuz-linux-zen
-          initrd /initramfs-linux-zen-fallback.img
-          options root=LABEL=root rootflags=subvol=@ rw quiet
+          title Arch Linux ({{ kernel }}) fallback initramfs
+          linux /vmlinuz-{{ kernel }}
+          initrd /initramfs-{{ kernel }}-fallback.img
+          options {{ kernel_cmdline }}
         mode: '0755'
       tags: bootctl
 

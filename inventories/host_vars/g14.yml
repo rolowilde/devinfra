@@ -1,6 +1,7 @@
 ---
 dev: nvme0n1
 hostname: G14
+kernel_opts: amd_pstate=guided
 
 pacman_chaotic_aur: true
 
