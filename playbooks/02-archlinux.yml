@@ -17,5 +17,6 @@
     - { role: samba, tags: [samba, smbd, smb] }
     - { role: libvirt, tags: libvirt }
     - { role: docker, tags: docker }
+    - { role: firewalld, tags: firewalld }
 
     - { role: dots, tags: [dots, dotfiles] }
