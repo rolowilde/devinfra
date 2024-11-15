@@ -1,0 +1,44 @@
+---
+- name: Install KDE Plasma packages
+  community.general.pacman:
+    name:
+      - bluedevil
+      - breeze-gtk
+      - drkonqi
+      - kde-gtk-config
+      - kdeplasma-addons
+      - kgamma
+      - kinfocenter
+      - kscreen
+      - ksshaskpass
+      - kwallet-pam
+      - kwrited
+      - ocean-sound-theme
+      - plasma-browser-integration
+      - plasma-desktop
+      - plasma-disks
+      - plasma-firewall
+      - plasma-nm
+      - plasma-pa
+      - plasma-systemmonitor
+      - plasma-thunderbolt
+      - plasma-workspace-wallpapers
+      - powerdevil
+      - sddm
+      - sddm-kcm
+      - xdg-desktop-portal-kde
+      - flatpak-kcm
+      - kaccounts-providers
+      - kwin
+      - xdg-desktop-portal-kde
+      - colord-kde
+      - gwenview
+      - okular
+      - dolphin
+      - ark
+      - kate
+      - kcalc
+      - kcharselect
+      - ksystemlog
+      - haruna
+      - kclock
