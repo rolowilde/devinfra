@@ -1,5 +1,5 @@
 ---
-- name: Install graphics stack
+- name: Install packages
   community.general.pacman:
     name:
       - wayland
@@ -9,21 +9,10 @@
       - wl-clipboard
       - ydotool
       - xorg-xwayland
-    state: present
-
-- name: Install audio stack
-  community.general.pacman:
-    name:
       - pipewire
       - pipewire-pulse
       - pipewire-jack
       - wireplumber
-    state: present
-    extra_args: '--noconfirm --ask=4'
-
-- name: Install GUI frameworks
-  community.general.pacman:
-    name:
       - libadwaita
       - gtk3
       - gtk4
@@ -31,16 +20,12 @@
       - qt6-base
       - qt5-wayland
       - qt6-wayland
-    state: present
-
-- name: Install XDG packages
-  community.general.pacman:
-    name:
       - xdg-utils
       - xdg-user-dirs
       - xdg-user-dirs-gtk
       - libcanberra
       - libnotify
+      - ibus
     state: present
 
 - name: Check if user-dirs.dirs exists
