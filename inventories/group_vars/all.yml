@@ -33,17 +33,14 @@ desktop_files_to_hide: [
 group_pacman_packages: [
   # Core Utilities & System
   git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
-  btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, lazydocker, broot,
-  fastfetch, yank, speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq,
-  figlet, trash-cli, gdu, rsync, rclone, lsd, zoxide, fzf, lazygit, github-cli,
-  cmatrix, unrar, unzip, p7zip, ffmpeg, curl, nvme-cli, pciutils, downgrade, most,
-  yay, inxi, powertop, nvme-cli,
+  btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
+  speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
+  gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
+  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop,
 
   # Development Tools & SDKs
   base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-  go, goreleaser, nodejs, npm, python, python-pip, python-poetry, python-black,
-  flake8, mypy, python-isort, python-flake8-isort, rustup, cargo-binstall,
-  cargo-sort, cargo-watch, cargo-bloat, cargo-update, cargo-release,
+  go, nodejs, npm, python, podman, vagrant,
 
   # Applications
   floorp, wezterm, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
@@ -52,7 +49,6 @@ group_pacman_packages: [
   # Fonts
   ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
   ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font, noto-fonts,
-  noto-fonts-cjk,
 
   # Gaming & Compatibility
   wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
