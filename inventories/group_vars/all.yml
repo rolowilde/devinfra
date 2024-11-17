@@ -27,7 +27,7 @@ group_sysctl_params:
 desktop_files_to_hide: [
   avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
-  protontricks, qv4l2, qvidcap, winetricks,
+  protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top
 ]
 
 group_pacman_packages: [
