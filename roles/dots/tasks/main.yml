@@ -8,7 +8,7 @@
 
 - name: Clone dotfile repo to $HOME/.dots
   ansible.builtin.git:
-    repo: https://github.com/rowlul/dots.git
+    repo: https://github.com/rolowilde/dots.git
     dest: "$HOME/.dots"
     bare: true
   become: false
@@ -31,7 +31,7 @@
 - name: Set origin url to ssh
   community.general.git_config:
     name: remote.origin.url
-    value: git@github.com:rowlul/dots.git
+    value: git@github.com:rolowilde/dots.git
     scope: local
     repo: "$HOME/.dots"
   become: false

@@ -18,7 +18,7 @@ Contains roles to be executed post base install. Run under the user created in a
 
 - zram on swap
 - services like docker and samba are configured but not enabled by default
-- bare [repo](https://github.com/rowlul/dots) for dotfiles, zsh as default shell
+- bare [repo](https://github.com/rolowilde/dots) for dotfiles, zsh as default shell
 - [ChaoticAUR](https://aur.chaotic.cx/) prefered to pkgbuild (when possible)
 - libvirt-qemu set up to execute under the specified user
 - random sshd port unless `ssh_port` is set
