@@ -3,7 +3,4 @@ pacman_multilib: false
 pacman_chaotic_aur: false
 pacman_reflector: false
 pacman_cache_cleanup: false
-pacman_reflector_args: |
-  --country LV,FI,SE
-  --protocol https
-  --sort rate
+pacman_reflector_args:
