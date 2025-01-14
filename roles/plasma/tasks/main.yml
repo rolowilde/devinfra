@@ -10,6 +10,7 @@
       - kgamma
       - kscreen
       - ksshaskpass
+      - kwalletmanager
       - kwallet-pam
       - kwrited
       - ocean-sound-theme
@@ -33,3 +34,4 @@
       - kcharselect
       - haruna
       - kate
+      - kalk
