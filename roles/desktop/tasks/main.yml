@@ -27,6 +27,7 @@
       - libnotify
       - ibus
     state: present
+    extra_args: '--noconfirm --ask=4'
 
 - name: Check if user-dirs.dirs exists
   ansible.builtin.stat:
