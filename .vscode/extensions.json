@@ -1,9 +1,0 @@
-{
-    "recommendations": [
-        "redhat.ansible",
-        "redhat.vscode-yaml",
-        "ms-python.python",
-        "samuelcolvin.jinjahtml",
-        "ms-azuretools.vscode-docker",
-    ]
-}
