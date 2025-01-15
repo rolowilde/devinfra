@@ -40,7 +40,7 @@ group_pacman_packages: [
 
   # Applications
   floorp, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
-  visual-studio-code-bin, gparted, libreoffice-fresh,
+  visual-studio-code-bin, libreoffice-fresh,
 
   # Fonts
   ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
