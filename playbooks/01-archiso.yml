@@ -8,6 +8,7 @@
     iknowwhatiamdoing: false
     vfat_mount_opts: rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro
     btrfs_mount_opts: rw,noatime,compress=zstd:1,space_cache=v2
+    infra_repo: https://github.com/rolowilde/devinfra.git
 
   roles:
     - { role: meta, tags: always, vars: { meta_end_host_if_archiso: false } }
@@ -31,7 +32,7 @@
       when: cryptroot
 
     - ansible.builtin.set_fact:
-        kernel: linux-zen
+        kernel: {{ kernel | default("linux-zen") }}
         kernel_cmdline: >-
           root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
           vt.global_cursor_default=0 rd.systemd.show_status=auto
@@ -257,16 +258,11 @@
         validate: findmnt --verify --fstab --tab-file %s --target /mnt
       tags: fstab
 
-    - name: Determine CPU microcode
-      ansible.builtin.set_fact:
-        cpu_microcode_package: >-
-          {{ 'amd-ucode' if 'AMD' in ansible_facts['processor'][0] else
-             'intel-ucode' if 'Intel' in ansible_facts['processor'][0] else None }}
-      tags: pacstrap
-
     - name: Pacstrap base system
       ansible.builtin.command:
-        cmd: "pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager python sudo {{ cpu_microcode_package }}"
+        cmd: >- 
+          pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager 
+          python sudo{% if pacstrap is defined %} {{ pacstrap }}{% endif %}
       tags: pacstrap
 
     - name: Edit mkinitcpio hooks
@@ -309,6 +305,13 @@
           systemctl enable sshd.service
       when: ansible_connection == "ssh"
       tags: network
+    
+    - name: Install git and ansible, clone repo
+      ansible.builtin.command:
+        cmd: arch-chroot /mnt
+        stdin: |
+          pacman -S --noconfirm git ansible
+          git clone {{ infra_repo }} /home/{{ user }}/infra
 
     - name: Install boot manager
       ansible.builtin.command:
