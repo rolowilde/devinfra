@@ -35,3 +35,8 @@
       - haruna
       - kate
       - kalk
+
+- name: Enable sddm.service
+  ansible.builtin.systemd:
+    name: sddm.service
+    enabled: true

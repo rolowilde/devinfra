@@ -35,3 +35,8 @@
       - menulibre
       - adw-gtk-theme-git
     state: present
+
+- name: Enable gdm.service
+  ansible.builtin.systemd:
+    name: gdm.service
+    enabled: true
