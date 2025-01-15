@@ -40,7 +40,7 @@ group_pacman_packages: [
   go, nodejs, npm, python, podman, vagrant,
 
   # Applications
-  floorp, foot, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
+  floorp, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
   visual-studio-code-bin, gparted, libreoffice-fresh,
 
   # Fonts
