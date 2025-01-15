@@ -33,7 +33,7 @@
       - file-roller
       - evince
       - menulibre
-      - adw-gtk-theme-git
+      - adw-gtk-theme
     state: present
 
 - name: Enable gdm.service
