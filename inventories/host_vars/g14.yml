@@ -1,5 +1,6 @@
 ---
 dev: nvme0n1
+pacstrap: amd-ucode
 hostname: G14
 
 pacman_chaotic_aur: true
