@@ -59,9 +59,3 @@ group_pacman_packages: [
   mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
   protontricks-git, lutris,
 ]
-
-group_flatpak_packages: [
-  com.discordapp.Discord, com.github.johnfactotum.Foliate, com.github.micahflee.torbrowser-launcher,
-  com.github.tchx84.Flatseal, com.spotify.Client, md.obsidian.Obsidian, us.zoom.Zoom,
-  com.github.IsmaelMartinez.teams_for_linux,
-]
