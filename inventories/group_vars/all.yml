@@ -40,12 +40,12 @@ group_pacman_packages: [
   go, nodejs, npm, python, podman, vagrant,
 
   # Applications
-  floorp, wezterm, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
+  floorp, foot, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
   visual-studio-code-bin, gparted, libreoffice-fresh,
 
   # Fonts
   ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
-  ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font, noto-fonts,
+  ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font,
 
   # Gaming & Compatibility
   wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
