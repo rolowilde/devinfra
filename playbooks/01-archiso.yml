@@ -32,7 +32,7 @@
       when: cryptroot
 
     - ansible.builtin.set_fact:
-        kernel: {{ kernel | default("linux-zen") }}
+        kernel: "{{ kernel | default('linux-zen') }}"
         kernel_cmdline: >-
           root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
           vt.global_cursor_default=0 rd.systemd.show_status=auto
@@ -260,8 +260,8 @@
 
     - name: Pacstrap base system
       ansible.builtin.command:
-        cmd: >- 
-          pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager 
+        cmd: >-
+          pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager
           python sudo{% if pacstrap is defined %} {{ pacstrap }}{% endif %}
       tags: pacstrap
 
@@ -305,7 +305,7 @@
           systemctl enable sshd.service
       when: ansible_connection == "ssh"
       tags: network
-    
+
     - name: Install git and ansible, clone repo
       ansible.builtin.command:
         cmd: arch-chroot /mnt
