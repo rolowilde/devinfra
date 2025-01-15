@@ -18,7 +18,6 @@ group_sysctl_params:
   kernel.printk: 3 3 3 3
   kernel.kptr_restrict: 2
   kernel.kexec_load_disabled: 1
-  kernel.unprivileged_userns_clone: 1
 
 desktop_files_to_hide: [
   avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
