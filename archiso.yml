@@ -1,18 +1,12 @@
 ---
 - name: Install Arch Linux from archiso
   hosts: all
-  tags: archiso
-
   vars:
     reboot: false
     iknowwhatiamdoing: false
     vfat_mount_opts: rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro
     btrfs_mount_opts: rw,noatime,compress=zstd:1,space_cache=v2
     infra_repo: https://github.com/rolowilde/devinfra.git
-
-  roles:
-    - { role: meta, tags: always, vars: { meta_end_host_if_archiso: false } }
-
   tasks:
     - ansible.builtin.assert:
         that:

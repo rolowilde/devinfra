@@ -26,7 +26,7 @@ desktop_files_to_hide: [
   org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo
 ]
 
-group_pacman_packages: [
+group_system_packages: [
   # Core Utilities & System
   git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,

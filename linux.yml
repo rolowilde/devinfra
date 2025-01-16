@@ -1,12 +1,7 @@
 ---
-- name: Provision by host or group
+- name: Configure a Linux workstation
   hosts: all
-  tags: extras
   become: true
-
-  roles:
-    - { role: meta }
-
   tasks:
     - name: Include host roles
       tags: [roles, host]
@@ -26,23 +21,23 @@
         - group_roles is defined
         - group_roles | length > 0
 
-    - name: Install host pacman packages
-      tags: [software, pacman, host]
-      community.general.pacman:
-        name: "{{ host_pacman_packages }}"
+    - name: Install host system packages
+      tags: [software, system, host]
+      ansible.builtin.package:
+        name: "{{ host_system_packages }}"
         state: present
       when:
-        - host_pacman_packages is defined
-        - host_pacman_packages | length > 0
+        - host_system_packages is defined
+        - host_system_packages | length > 0
 
-    - name: Install group pacman packages
-      tags: [software, pacman, group]
-      community.general.pacman:
-        name: "{{ group_pacman_packages }}"
+    - name: Install group system packages
+      tags: [software, system, group]
+      ansible.builtin.package:
+        name: "{{ group_system_packages }}"
         state: present
       when:
-        - group_pacman_packages is defined
-        - group_pacman_packages | length > 0
+        - group_system_packages is defined
+        - group_system_packages | length > 0
 
     - name: Install flatpak
       tags: [software, flatpak, group, host]
@@ -85,6 +80,7 @@
 
     - name: Enable and start host systemd user units
       tags: [systemd, host]
+      become: false
       ansible.builtin.systemd:
         name: "{{ item }}"
         enabled: true
