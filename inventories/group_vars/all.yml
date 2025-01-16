@@ -44,7 +44,7 @@ group_pacman_packages: [
 
   # Fonts
   ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
-  ttf-twemoji, ttf-opensans, ttf-ubuntu-font-family, inter-font,
+  noto-fonts-emoji, ttf-opensans, ttf-ubuntu-font-family, inter-font,
 
   # Gaming & Compatibility
   wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
