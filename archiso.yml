@@ -4,7 +4,6 @@
   vars:
     reboot: false
     iknowwhatiamdoing: false
-    vfat_mount_opts: rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro
     btrfs_mount_opts: rw,noatime,compress=zstd:1,space_cache=v2
     infra_repo: https://github.com/rolowilde/devinfra.git
   tasks:
@@ -241,8 +240,6 @@
       ansible.builtin.copy:
         dest: /mnt/etc/fstab
         content: |
-          LABEL=EFI  /boot                 vfat  {{ vfat_mount_opts }}                    0 2
-
           LABEL=root /                     btrfs {{ btrfs_mount_opts }},subvol=@          0 0
           LABEL=root /home                 btrfs {{ btrfs_mount_opts }},subvol=@home      0 0
           LABEL=root /var/cache/pacman/pkg btrfs {{ btrfs_mount_opts }},subvol=@pkg       0 0
