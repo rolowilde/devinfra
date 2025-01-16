@@ -1,14 +1,13 @@
 ---
 - name: Install dependencies
   ansible.builtin.package:
-    name:
-      - git
-      - zsh
+    name: git
     state: present
+  become: true
 
 - name: Clone dotfile repo to $HOME/.dots
   ansible.builtin.git:
-    repo: https://github.com/rolowilde/dots.git
+    repo: "{{ dots_repo }}"
     dest: "$HOME/.dots"
     bare: true
   become: false
@@ -31,17 +30,7 @@
 - name: Set origin url to ssh
   community.general.git_config:
     name: remote.origin.url
-    value: git@github.com:rolowilde/dots.git
+    value: "{{ dots_repo | regex_replace('^https://([^/]+)/(.+)$', 'git@\\1:\\2') }}"
     scope: local
     repo: "$HOME/.dots"
   become: false
-
-- name: Get running user
-  ansible.builtin.set_fact:
-    __env_username: "{{ lookup('env', 'USER') }}"
-  become: false
-
-- name: Set running user's shell to /bin/zsh
-  ansible.builtin.user:
-    name: "{{ __env_username }}"
-    shell: "/bin/zsh"
