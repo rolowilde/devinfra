@@ -24,7 +24,7 @@ desktop_files_to_hide: [
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
   protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top, org.kde.kuserfeedback-console,
   org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo, vim,
-  thorium-shell
+  thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer
 ]
 
 group_system_packages: [
