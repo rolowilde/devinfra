@@ -1,10 +1,4 @@
-inventories/**/*
-!inventories/local.yml
-!inventories/group_vars
-!inventories/group_vars/*.yml
-!inventories/host_vars
-!inventories/host_vars/*.yml
-venv/
 .ansible/
 .vscode/
 .idea/
+venv/
