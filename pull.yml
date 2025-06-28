@@ -1,0 +1,8 @@
+---
+- name: Pull Ansible Galaxy requirements
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Install requirements
+      ansible.builtin.command:
+        cmd: "/usr/bin/ansible-galaxy install -r {{ playbook_dir }}/requirements.yml"
