@@ -1,4 +1,6 @@
----
+
+# Common
+
 user: rolo
 timezone: Europe/Riga
 locales:
@@ -10,7 +12,15 @@ pacman_multilib: true
 pacman_chaotic_aur: true
 pacman_cache_cleanup: true
 
-group_sysctl_params:
+desktop_files_to_hide: [ # Because I hate bloated app menu
+  avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
+  jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
+  protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top, org.kde.kuserfeedback-console,
+  org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo, vim,
+  thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer
+]
+
+sysctl_params:
   vm.dirty_bytes: 268435456
   vm.dirty_background_bytes: 134217728
   vm.max_map_count: 2147483642
@@ -19,35 +29,30 @@ group_sysctl_params:
   kernel.kptr_restrict: 2
   kernel.kexec_load_disabled: 1
 
-desktop_files_to_hide: [
-  avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
-  jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
-  protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top, org.kde.kuserfeedback-console,
-  org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo, vim,
-  thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer
-]
-
-group_system_packages: [
-  # Core Utilities & System
+cli_packages: [
   git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
   gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
   nvme-cli, pciutils, downgrade, most, yay, inxi, powertop,
+]
 
-  # Development Tools & SDKs
+dev_packages: [
   base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-  go, nodejs, npm, python, podman, vagrant,
+  go, nodejs, npm, python, podman, vagrant, rustup, uv, mongosh
+]
 
-  # Applications
-  floorp, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
+gui_packages: [
+  ungoogled-chromium-bin, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
   visual-studio-code-bin, libreoffice-fresh,
+]
 
-  # Fonts
+font_packages: [
   ttf-cascadia-code, ttf-cascadia-code-nerd, ttf-dejavu, ttf-droid, ttf-liberation,
   noto-fonts-emoji, ttf-opensans, ttf-ubuntu-font-family, inter-font,
+]
 
-  # Gaming & Compatibility
+gaming_packages: [
   wine, giflib, lib32-giflib, libldap, lib32-libldap, gnutls, lib32-gnutls,
   v4l-utils, lib32-v4l-utils, libpulse, lib32-libpulse, alsa-plugins,
   lib32-alsa-plugins, lib32-alsa-lib, libxcomposite, lib32-libxcomposite,
@@ -59,3 +64,11 @@ group_system_packages: [
   mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
   protontricks-git, lutris,
 ]
+
+all_packages: "{{ cli_packages }} + {{ dev_packages }} + {{ gui_packages }} + {{ font_packages }} + {{ gaming_packages }}"
+
+# Device specific
+
+ga402r_packages: [power-profiles-daemon, asusctl, supergfxctl, switcheroo-control, rog-control-center]
+ga402r_services: [power-profiles-daemon, asusd, supergfxd, switcheroo-control]
+ga402r_kernel_blacklist: [sp5100_tco, wdat_wdt] # watchdog

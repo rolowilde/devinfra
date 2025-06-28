@@ -1,13 +1,22 @@
 ---
 - name: Install Arch Linux from archiso
-  hosts: all
+  hosts: localhost
   vars:
-    reboot: false
-    iknowwhatiamdoing: false
     btrfs_mount_opts: rw,noatime,compress=zstd:1,space_cache=v2
-    infra_repo: https://github.com/rolowilde/devinfra.git
+    kernel: linux
+    kernel_cmdline: >-
+      root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
+      vt.global_cursor_default=0 audit=0 nowatchdog
+    pacstrap: "base {{ kernel | default(default_kernel) }} linux-firmware btrfs-progs networkmanager python sudo git ansible"
+    mkinitcpio_hooks: base systemd keyboard autodetect microcode modconf kms block filesystems sd-vconsole
   tasks:
-    - ansible.builtin.assert:
+    - name: Include vars
+      ansible.builtin.include_vars:
+        file: vars.yml
+      tags: always
+
+    - name: Assert vars
+      ansible.builtin.assert:
         that:
           - dev is defined and dev | length > 0 and
             dev[:5] != '/dev/' and dev in ansible_devices
@@ -18,20 +27,12 @@
           - user is defined and user | length > 0
           - user_password is defined and user | length > 0
 
-    - ansible.builtin.assert:
+    - name: Assert cryptroot passphrase
+      ansible.builtin.assert:
         that:
           - cryptroot_passphrase is defined
           - cryptroot_passphrase | length > 0
       when: cryptroot
-
-    - ansible.builtin.set_fact:
-        kernel: "{{ kernel | default('linux-zen') }}"
-        kernel_cmdline: >-
-          root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
-          vt.global_cursor_default=0 rd.systemd.show_status=auto
-          rd.udev.log_level=3 audit=0 zswap.enabled=0
-          nowatchdog{% if kernel_opts is defined %} {{ kernel_opts }}{% endif %}
-      tags: [pacstrap, bootctl]
 
     - name: Read device
       community.general.parted:
@@ -39,7 +40,8 @@
       register: dev_parted
       tags: partition
 
-    - ansible.builtin.debug:
+    - name: Output device
+      ansible.builtin.debug:
         var: dev_parted
       tags: partition
 
@@ -49,7 +51,7 @@
           Device to install Arch Linux on: /dev/{{ dev }}
           ALL DATA WILL BE WIPED ON THE DEVICE!!!
           Press Enter to continue...
-      when: not iknowwhatiamdoing
+      when: not lookup('ansible.builtin.vars', iknowwhatiamdoing, default=False)
       tags: partition
 
     - name: Ensure root container is closed
@@ -251,18 +253,20 @@
 
     - name: Pacstrap base system
       ansible.builtin.command:
-        cmd: >-
-          pacstrap -K /mnt base {{ kernel }} linux-firmware btrfs-progs networkmanager
-          python sudo{% if pacstrap is defined %} {{ pacstrap }}{% endif %}
+        cmd: "pacstrap -K /mnt {{ pacstrap }}"
       tags: pacstrap
 
-    - name: Edit mkinitcpio hooks
+    - name: Append encryption hook
+      ansible.builtin.set_fact:
+        mkinitcpio_hooks: "{{ mkinitcpio_hooks }} sd-encrypt"
+      when: cryptroot
+
+    - name: Replace mkinitcpio hooks
       ansible.builtin.lineinfile:
         path: /mnt/etc/mkinitcpio.conf
         regex: '(?m)^(?!#)\s*HOOKS=\([^\)]+\)'
-        line: 'HOOKS=(base systemd microcode kms modconf keyboard block filesystems btrfs sd-encrypt fsck)'
+        line: "HOOKS=({{ mkinitcpio_hooks }})"
       when: cryptroot
-      failed_when: false
       tags: initramfs
 
     - name: Create crypttab.initramfs
@@ -287,22 +291,6 @@
         cmd: arch-chroot /mnt
         stdin: systemctl enable NetworkManager.service
       tags: network
-
-    - name: Install and enable sshd service
-      ansible.builtin.command:
-        cmd: arch-chroot /mnt
-        stdin: |
-          pacman -S --noconfirm openssh
-          systemctl enable sshd.service
-      when: ansible_connection == "ssh"
-      tags: network
-
-    - name: Install git and ansible, clone repo
-      ansible.builtin.command:
-        cmd: arch-chroot /mnt
-        stdin: |
-          pacman -S --noconfirm git ansible
-          git clone {{ infra_repo }} /home/{{ user }}/infra
 
     - name: Install boot manager
       ansible.builtin.command:
@@ -380,7 +368,7 @@
     - name: Set hostname
       ansible.builtin.copy:
         dest: /mnt/etc/hostname
-        content: "{{ hostname }}\n"
+        content: "{{ hostname }}"
         mode: '0644'
       tags: hostname
 
@@ -423,13 +411,8 @@
       when: root_password is undefined or root_password | length == 0
       tags: [root, superuser]
 
-    - ansible.builtin.reboot:
-        msg: Host will reboot now
-      failed_when: false
-      when: reboot
-
-    - ansible.builtin.debug:
+    - name: Finish
+      ansible.builtin.debug:
         msg:
           - You may now reboot
           - Log in as {{ user }} to continue setup
-      when: not reboot

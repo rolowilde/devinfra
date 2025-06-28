@@ -1,6 +1,7 @@
 ---
-- name: Configure an Arch Linux workstation
-  hosts: all
+- name: Configure Arch Linux
+  hosts: localhost
+  vars_files: vars.yml
   become: true
   roles:
     - { role: pacman, tags: pacman }
@@ -9,9 +10,5 @@
     - { role: udev, tags: udev }
     - { role: zram, tags: zram }
     - { role: ananicy, tags: ananicy }
-    - { role: sshd, tags: sshd }
-    - { role: samba, tags: [samba, smbd, smb] }
-    - { role: libvirt, tags: libvirt }
-    - { role: docker, tags: docker }
     - { role: firewalld, tags: firewalld }
-    - { role: dots, tags: [dots, dotfiles] }
+    - { role: dots, tags: dots }

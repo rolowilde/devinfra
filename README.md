@@ -10,7 +10,6 @@ Opinionated Arch Linux installer playbook. Hosts must be booted into archiso, UE
 `dev` (block device **without** /dev/ part to install), `timezone`, `locales`, `hostname`, `user` (name), `user_password`.
 Provides only minimal setup as everything else is done in the subsequent playbook/roles.
 `root_password` is optional; superuser will be locked if unspecified.
-SSH is enabled in chroot, though `sshd` role will later take care of the port.
 
 Encryption of the root partition is enabled by default (`cryptroot` boolean), thus `cryptroot_passphrase` is required to be set. Cryptsetup is already preconfigured with optimal defaults for modern CPUs with AES instruction set, with some options being configurable.
 
