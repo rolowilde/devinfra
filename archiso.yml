@@ -45,15 +45,6 @@
         var: dev_parted
       tags: partition
 
-    - name: Prompt before partitioning
-      ansible.builtin.pause:
-        prompt: |
-          Device to install Arch Linux on: /dev/{{ dev }}
-          ALL DATA WILL BE WIPED ON THE DEVICE!!!
-          Press Enter to continue...
-      when: not lookup('ansible.builtin.vars', iknowwhatiamdoing, default=False)
-      tags: partition
-
     - name: Ensure root container is closed
       community.crypto.luks_device:
         name: root
