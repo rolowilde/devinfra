@@ -34,12 +34,12 @@ cli_packages: [
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
   gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
-  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop,
+  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, ssh
 ]
 
 dev_packages: [
   base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-  go, nodejs, npm, python, podman, vagrant, rustup, uv, mongosh
+  go, nodejs, npm, python, podman, vagrant, rustup, uv, mongosh, ansible, ansible-lint
 ]
 
 gui_packages: [
