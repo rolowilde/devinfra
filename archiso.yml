@@ -46,16 +46,16 @@
         var: dev_parted
       tags: partition
 
+    - name: Ensure /mnt is unmounted
+      ansible.builtin.command:
+        cmd: umount -R /mnt
+      failed_when: false
+      tags: [partition, mount]
+
     - name: Ensure root container is closed
       community.crypto.luks_device:
         name: root
         state: closed
-      failed_when: false
-      tags: [partition, mount]
-
-    - name: Ensure /mnt is unmounted
-      ansible.builtin.command:
-        cmd: umount -R /mnt
       failed_when: false
       tags: [partition, mount]
 
