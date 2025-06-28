@@ -2,12 +2,13 @@
 - name: Install Arch Linux from archiso
   hosts: localhost
   vars:
+    vfat_mount_opts: rw,relatime,fmask=0022,dmask=0022,codepage=437,iocharset=ascii,shortname=mixed,utf8,errors=remount-ro
     btrfs_mount_opts: rw,noatime,compress=zstd:1,space_cache=v2
     kernel: linux
     kernel_cmdline: >-
       root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
       vt.global_cursor_default=0 audit=0 nowatchdog
-    pacstrap: "base {{ kernel | default(default_kernel) }} linux-firmware btrfs-progs networkmanager python sudo git ansible"
+    pacstrap: "base {{ kernel | default('linux') }} linux-firmware btrfs-progs networkmanager python sudo git ansible"
     mkinitcpio_hooks: base systemd keyboard autodetect microcode modconf kms block filesystems sd-vconsole
   tasks:
     - name: Include vars
