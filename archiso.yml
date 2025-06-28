@@ -342,6 +342,12 @@
         stdin: hwclock --systohc
       tags: timezone
 
+    - name: Enable NTP service
+      ansible.builtin.shell:
+        cmd: arch-chroot /mnt
+        stdin: systemctl enable systemd-timesyncd.service
+      tags: timezone
+
     - name: Add locales
       ansible.builtin.lineinfile:
         path: /mnt/etc/locale.gen
