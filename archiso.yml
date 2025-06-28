@@ -271,6 +271,13 @@
       when: cryptroot
       tags: initramfs
 
+    - name: Copy /etc/vconsole.conf
+      ansible.builtin.copy:
+        src: /etc/vconsole.conf
+        dest: /mnt/etc/vconsole.conf
+        mode: preserve
+      tags: initramfs
+
     - name: Regenerate initramfs
       ansible.builtin.command:
         cmd: arch-chroot /mnt
