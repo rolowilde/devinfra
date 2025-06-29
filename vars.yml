@@ -68,9 +68,3 @@ gaming_packages: [
 ]
 
 all_packages: "{{ cli_packages + dev_packages + gui_packages + font_packages + gaming_packages }}"
-
-# Device specific
-
-ga402r_packages: [power-profiles-daemon, asusctl, supergfxctl, switcheroo-control, rog-control-center]
-ga402r_services: [power-profiles-daemon, asusd, supergfxd, switcheroo-control]
-ga402r_kernel_blacklist: [sp5100_tco, wdat_wdt] # watchdog

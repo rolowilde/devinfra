@@ -12,12 +12,12 @@
     pacstrap: "base {{ kernel | default('linux') }} linux-firmware {{ microcode }} btrfs-progs networkmanager python sudo git ansible-core"
     mkinitcpio_hooks: base systemd autodetect modconf kms keyboard sd-vconsole block filesystems fsck
     mkinitcpio_hooks_crypt: base systemd autodetect modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck
-  tasks:
+  pre_tasks:
     - name: Include vars
       ansible.builtin.include_vars:
         file: vars.yml
       tags: always
-
+  tasks:
     - name: Assert vars
       ansible.builtin.assert:
         that:
