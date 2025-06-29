@@ -10,7 +10,8 @@
       vt.global_cursor_default=0 audit=0 nowatchdog
     microcode: "{{ 'intel-ucode' if 'GenuineIntel' in ansible_processor else ('amd-ucode' if 'AuthenticAMD' in ansible_processor else '') }}"
     pacstrap: "base {{ kernel | default('linux') }} linux-firmware {{ microcode }} btrfs-progs networkmanager python sudo git ansible"
-    mkinitcpio_hooks: base systemd keyboard autodetect microcode modconf kms block filesystems sd-vconsole
+    mkinitcpio_hooks: base systemd autodetect modconf kms keyboard sd-vconsole block filesystems fsck
+    mkinitcpio_hooks_crypt: base systemd autodetect modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck
   tasks:
     - name: Include vars
       ansible.builtin.include_vars:
@@ -249,16 +250,11 @@
         cmd: "pacstrap -K /mnt {{ pacstrap }}"
       tags: pacstrap
 
-    - name: Append encryption hook
-      ansible.builtin.set_fact:
-        mkinitcpio_hooks: "{{ mkinitcpio_hooks }} sd-encrypt"
-      when: cryptroot
-
     - name: Replace mkinitcpio hooks
       ansible.builtin.lineinfile:
         path: /mnt/etc/mkinitcpio.conf
         regex: '(?m)^(?!#)\s*HOOKS=\([^\)]+\)'
-        line: "HOOKS=({{ mkinitcpio_hooks }})"
+        line: "HOOKS=({{ mkinitcpio_hooks_crypt if cryptroot else mkinitcpio_hooks }})"
       when: cryptroot
       tags: initramfs
 
