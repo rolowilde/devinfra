@@ -41,7 +41,7 @@ cli_packages: [
 
 dev_packages: [
   base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-  go, nodejs, npm, python, podman, vagrant, rustup, uv, mongosh, ansible, ansible-lint
+  go, nodejs, npm, python, rustup, uv, mongosh, ansible, ansible-lint
 ]
 
 gui_packages: [
