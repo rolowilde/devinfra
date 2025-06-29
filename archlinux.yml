@@ -12,3 +12,4 @@
     - { role: ananicy, tags: ananicy }
     - { role: firewalld, tags: firewalld }
     - { role: dots, tags: dots }
+    - { role: zsh, tags: zsh }

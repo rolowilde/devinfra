@@ -12,6 +12,8 @@ pacman_multilib: true
 pacman_chaotic_aur: true
 pacman_cache_cleanup: true
 
+zsh_cleanup_bash: true
+
 desktop_files_to_hide: [ # Because I hate bloated app menu
   avahi-discover, bssh, btop, bvnc, cmake-gui, htop, jconsole-java-openjdk,
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,

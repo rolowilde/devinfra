@@ -1,0 +1,21 @@
+---
+- name: Install zsh
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Change user shell
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+
+- name: Clean up bash files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - .bash_history
+    - .bash_logout
+    - .bash_profile
+    - .bashrc
+  when: zsh_cleanup_bash
