@@ -5,7 +5,7 @@
       - wayland
       - wayland-protocols
       - wayland-utils
-      - wlroots
+      - wlroots0.18
       - wl-clipboard
       - ydotool
       - xorg-xwayland
