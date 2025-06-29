@@ -46,7 +46,7 @@ dev_packages: [
 
 gui_packages: [
   ungoogled-chromium-bin, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
-  visual-studio-code-bin, libreoffice-fresh, alacritty,
+  visual-studio-code-bin, libreoffice-fresh, alacritty, easyeffects,
 ]
 
 font_packages: [
