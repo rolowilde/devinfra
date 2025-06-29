@@ -68,4 +68,4 @@ This alone does not provide a graphical interface that subsequent playbooks do.
 
 ### ga402r.yml
 
-Playbook to configure ASUS ROG Zephyrus G14 2022 as my daily driver for development and gaming. Uses GNOME as the desktop environment and provides ASUS specific utilities for profile management, graphics switching, keyboard backlight, etc. Finally, installs a bundle of my preferred software at the end.
+Playbook to configure ASUS ROG Zephyrus G14 2022 as my daily driver for development and gaming. Uses KDE Plasma as the desktop environment and provides ASUS specific utilities for profile management, graphics switching, keyboard backlight, etc. Finally, installs a bundle of my preferred software at the end.

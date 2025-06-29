@@ -20,7 +20,7 @@
     - { role: docker, tags: docker }
     - { role: amdgpu, tags: amdgpu}
     - { role: desktop, tags: desktop }
-    - { role: gnome, tags: gnome }
+    - { role: plasma, tags: plasma }
   tasks:
     - name: Set sysctl parameters
       ansible.posix.sysctl:
