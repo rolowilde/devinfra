@@ -6,12 +6,12 @@
 
 - name: Change user shell
   ansible.builtin.user:
-    name: "{{ user }}"
+    name: "{{ user | default(ansible_user) }}"
     shell: /bin/zsh
 
 - name: Clean up bash files
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "/home/{{ user | default(ansible_user) }}/{{ item }}"
     state: absent
   loop:
     - .bash_history

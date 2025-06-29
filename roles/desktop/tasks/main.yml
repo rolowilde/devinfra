@@ -32,13 +32,13 @@
 
 - name: Check if user-dirs.dirs exists
   ansible.builtin.stat:
-    path: "$HOME/.config/user-dirs.dirs"
+    path: "/home/{{ user | default(ansible_user) }}/.config/user-dirs.dirs"
   register: user_dirs_fs
   become: false
 
 - name: Read user-dirs.dirs
   ansible.builtin.command:
-    cmd: cat "$HOME/.config/user-dirs.dirs"
+    cmd: "cat /home/{{ user | default(ansible_user) }}/.config/user-dirs.dirs"
   register: user_dirs_file
   become: false
   when: user_dirs_fs.stat.exists
@@ -59,14 +59,14 @@
 
 - name: Create ~/.local/share/applications
   ansible.builtin.file:
-    path: "$HOME/.local/share/applications"
+    path: "/home/{{ user | default(ansible_user) }}/.local/share/applications"
     state: directory
     mode: '0755'
   become: false
 
 - name: Hide certain .desktop files
   ansible.builtin.copy:
-    dest: "$HOME/.local/share/applications/{{ item }}.desktop"
+    dest: "/home/{{ user | default(ansible_user) }}/.local/share/applications/{{ item }}.desktop"
     content: |
       [Desktop Entry]
       NoDisplay=true
