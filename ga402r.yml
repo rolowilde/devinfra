@@ -1,4 +1,7 @@
 ---
+- ansible.builtin.import_playbook:
+    archlinux.yml
+
 - name: Configure GA402R laptop
   hosts: localhost
   vars_files: vars.yml
@@ -17,16 +20,19 @@
         value: "{{ item.value }}"
         state: present
       loop: "{{ sysctl_params | dict2items }}"
+      tags: sysctl
 
     - name: Blacklist kernel modules
       community.general.kernel_blacklist:
         name: "{{ ga402r_kernel_blacklist }}"
         state: present
+      tags: modprobe
 
     - name: Install laptop packages
-      community.general.pacman:
+      ansible.builtin.package:
         name: "{{ ga402r_packages }}"
         state: present
+      tags: packages
 
     - name: Enable and start laptop services
       ansible.builtin.systemd:
@@ -34,8 +40,10 @@
         enabled: true
         state: started
       loop: "{{ ga402r_services }}"
+      tags: services
 
     - name: Install all packages
-      community.general.pacman:
+      ansible.builtin.package:
         name: "{{ all_packages }}"
         state: present
+      tags: packages
