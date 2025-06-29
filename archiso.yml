@@ -9,7 +9,7 @@
       root=LABEL=root rootflags=subvol=@ rw quiet loglevel=3
       vt.global_cursor_default=0 audit=0 nowatchdog zswap.enabled=0
     microcode: "{{ 'intel-ucode' if 'GenuineIntel' in ansible_processor else ('amd-ucode' if 'AuthenticAMD' in ansible_processor else '') }}"
-    pacstrap: "base {{ kernel | default('linux') }} linux-firmware {{ microcode }} btrfs-progs networkmanager python sudo git ansible"
+    pacstrap: "base {{ kernel | default('linux') }} linux-firmware {{ microcode }} btrfs-progs networkmanager python sudo git ansible-core"
     mkinitcpio_hooks: base systemd autodetect modconf kms keyboard sd-vconsole block filesystems fsck
     mkinitcpio_hooks_crypt: base systemd autodetect modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck
   tasks:
