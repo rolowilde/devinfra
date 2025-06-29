@@ -36,7 +36,7 @@ cli_packages: [
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
   gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
-  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, ssh
+  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh,
 ]
 
 dev_packages: [
@@ -67,7 +67,7 @@ gaming_packages: [
   protontricks-git, lutris,
 ]
 
-all_packages: "{{ cli_packages }} + {{ dev_packages }} + {{ gui_packages }} + {{ font_packages }} + {{ gaming_packages }}"
+all_packages: "{{ cli_packages + dev_packages + gui_packages + font_packages + gaming_packages }}"
 
 # Device specific
 
