@@ -34,6 +34,7 @@
       - kcharselect
       - kate
       - kalk
+      - spectacle
 
 - name: Enable sddm.service
   ansible.builtin.systemd:
