@@ -32,8 +32,9 @@
 
     - name: Blacklist kernel modules
       community.general.kernel_blacklist:
-        name: "{{ kernel_blacklist }}"
+        name: "{{ item }}"
         state: present
+      loop: "{{ kernel_blacklist }}"
       tags: modprobe
 
     - name: Install laptop packages
