@@ -16,7 +16,8 @@ desktop_files_to_hide: [ # Because I hate bloated app menu
   jshell-java-openjdk, nvim, org.gnome.Extensions, org.torproject.torbrowser-launcher.settings,
   protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top, org.kde.kuserfeedback-console,
   org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo, vim,
-  thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer
+  thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer, yad-icon-browser,
+  yad-settings,
 ]
 
 sysctl_params:
@@ -46,6 +47,7 @@ dev_packages: [
 gui_packages: [
   ungoogled-chromium-bin, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
   visual-studio-code-bin, libreoffice-fresh, alacritty, easyeffects, veracrypt,
+  btrfs-assistant, kdiskmark,
 ]
 
 font_packages: [
