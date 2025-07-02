@@ -34,12 +34,13 @@ cli_packages: [
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
   gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
-  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh,
+  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh, bind,
 ]
 
 dev_packages: [
   base-devel, gdb, cmake, clang, llvm, dotnet-sdk, aspnet-targeting-pack, mono,
-  go, nodejs, npm, python, rustup, uv, mongosh, ansible-core, ansible-lint
+  go, nodejs, npm, python, rustup, uv, mongosh, ansible-core, ansible-lint,
+  wireshark-cli, wireshark-qt, tcpdump, nmap,
 ]
 
 gui_packages: [
@@ -62,7 +63,7 @@ gaming_packages: [
   sqlite, lib32-sqlite, lib32-libgcrypt, libgcrypt, ncurses, lib32-ncurses,
   ocl-icd, lib32-ocl-icd, libxslt, lib32-libxslt, winetricks, protonup-qt,
   mangohud, lib32-mangohud, gamescope, gamemode, lib32-gamemode, steam,
-  protontricks-git, lutris,
+  protontricks-git, lutris, goverlay,
 ]
 
 all_packages: "{{ cli_packages + dev_packages + gui_packages + font_packages + gaming_packages }}"
