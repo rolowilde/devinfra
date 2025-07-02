@@ -8,7 +8,7 @@
   vars:
     packages: [power-profiles-daemon, asusctl, supergfxctl, switcheroo-control, rog-control-center]
     services: [power-profiles-daemon, asusd, supergfxd, switcheroo-control]
-    kernel_blacklist: [sp5100_tco, wdat_wdt] # watchdog
+    kernel_blacklist: [pcspkr, sp5100_tco, wdat_wdt] # watchdog
   pre_tasks:
     - name: Include vars
       ansible.builtin.include_vars:
