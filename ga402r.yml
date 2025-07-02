@@ -34,6 +34,7 @@
     - name: Blacklist kernel modules
       community.general.kernel_blacklist:
         name: "{{ item }}"
+        blacklist_file: /etc/modprobe.d/blacklist.conf
         state: present
       loop: "{{ kernel_blacklist }}"
       tags: modprobe
