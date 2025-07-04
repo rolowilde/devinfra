@@ -20,15 +20,12 @@
     state: present
   failed_when: false
 
-- name: Check whether /etc/mkinitcpio.conf contains "amdgpu"
-  ansible.builtin.command: grep -q 'MODULES=.*amdgpu' /etc/mkinitcpio.conf
-  register: amdgpu_check
-  failed_when: false
+- name: Create /etc/mkinitcpio.conf.d/amdgpu.conf
+  ansible.builtin.copy:
+    content: "MODULES+=(amdgpu)\n"
+    dest: /etc/mkinitcpio.conf.d/amdgpu.conf
+    mode: '0644'
 
-- name: Add "amdgpu" to modules in /etc/mkinitcpio.conf
-  ansible.builtin.lineinfile:
-    path: /etc/mkinitcpio.conf
-    regexp: '^MODULES=\((.*)\)'
-    line: 'MODULES=(\1{{ " " if amdgpu_check.rc == 0 else "" }}amdgpu)'
-    backrefs: true
-  when: amdgpu_check.rc != 0
+- name: Regenerate initramfs
+  ansible.builtin.command:
+    cmd: mkinitcpio -P
