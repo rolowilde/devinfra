@@ -35,7 +35,7 @@ cli_packages: [
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
   gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
-  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh, bind,
+  nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh, bind, lshw,
 ]
 
 dev_packages: [
