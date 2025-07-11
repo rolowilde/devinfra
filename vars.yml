@@ -17,7 +17,7 @@ desktop_files_to_hide: [ # Because I hate bloated app menu
   protontricks, qv4l2, qvidcap, winetricks, amdgpu_top-tui, amdgpu_top, org.kde.kuserfeedback-console,
   org.freedesktop.IBus.Setup, foot-server, footclient, firewall-config, nvtop, lstopo, vim,
   thorium-shell, eidlv-pintool, assistant, qdbusviewer, linguist, designer, yad-icon-browser,
-  yad-settings,
+  yad-settings, org.kde.kdeconnect.sms, gtk-lshw
 ]
 
 sysctl_params:
