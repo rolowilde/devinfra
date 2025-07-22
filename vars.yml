@@ -34,8 +34,9 @@ cli_packages: [
   git, neovim, sudo, pkgstats, usbutils, tree, gnupg, fwupd, wget, inetutils,
   btop, htop, aria2, yt-dlp, just, grex, ripgrep, bat, broot, fastfetch, yank,
   speedtest-cli, tldr, man-db, man-pages, texinfo, jq, yq, figlet, trash-cli,
-  gdu, rsync, lsd, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
+  gdu, rsync, eza, fzf, github-cli, cmatrix, unrar, unzip, p7zip, ffmpeg, curl,
   nvme-cli, pciutils, downgrade, most, yay, inxi, powertop, openssh, bind, lshw,
+  efibootmgr, efitools, dosfstools, rbw,
 ]
 
 dev_packages: [
@@ -47,7 +48,7 @@ dev_packages: [
 gui_packages: [
   ungoogled-chromium-bin, qbittorrent, jetbrains-toolbox, prismlauncher, virt-manager,
   visual-studio-code-bin, libreoffice-fresh, alacritty, easyeffects, veracrypt,
-  btrfs-assistant, kdiskmark,
+  btrfs-assistant, kdiskmark, localsend,
 ]
 
 font_packages: [
